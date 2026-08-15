@@ -640,10 +640,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Start Server on 0.0.0.0 for LAN & Mobile accessibility
-const server = app.listen(PORT, '0.0.0.0', () => {
-  const localIp = getLocalNetworkIp();
-  console.log(`
+// Start Server on 0.0.0.0 for LAN & Mobile accessibility (when not on serverless)
+if (!process.env.VERCEL) {
+  const server = app.listen(PORT, '0.0.0.0', () => {
+    const localIp = getLocalNetworkIp();
+    console.log(`
 =====================================================
   🚀 AWAIS DOWNLOAD FAST - SERVER RUNNING! 🚀
   🇵🇰 14 AUGUST INDEPENDENCE DAY SPECIAL EDITION 🇵🇰
@@ -653,16 +654,18 @@ const server = app.listen(PORT, '0.0.0.0', () => {
 =====================================================
   YouTube Bot-Bypass, TikTok No-Watermark & Insta Ready!
 =====================================================
-  `);
-});
+    `);
+  });
 
-// Graceful error handling
-server.on('error', (err) => {
-  if (err.code === 'EADDRINUSE') {
-    console.warn(`[Port Warning] Port ${PORT} is already in use by another instance of Awais Download Fast.`);
-  } else {
-    console.error('[Server Error]:', err);
-  }
-});
+  // Graceful error handling
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.warn(`[Port Warning] Port ${PORT} is already in use by another instance of Awais Download Fast.`);
+    } else {
+      console.error('[Server Error]:', err);
+    }
+  });
+}
 
 module.exports = app;
+
