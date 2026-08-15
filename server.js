@@ -51,15 +51,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Cache-control for static assets
-app.use(express.static(path.join(__dirname, 'public'), {
-  maxAge: '1h',
-  setHeaders: (res, filePath) => {
-    if (filePath.endsWith('.html')) {
-      res.setHeader('Cache-Control', 'no-cache');
-    }
-  }
-}));
+// Cache-control for static assets (serves from both public and root directory)
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
+app.use(express.static(__dirname, { maxAge: '1h' }));
 
 // Detect video platform
 function detectPlatform(url) {
