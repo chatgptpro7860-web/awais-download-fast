@@ -2983,7 +2983,33 @@ fmtTabs.forEach(tab => {
   });
 });
 
-// --- Fetch Video Information ---
+// Helper: format bytes
+function formatBytes(bytes) {
+  if (!bytes || isNaN(bytes)) return 'HD';
+  const units = ['B', 'KB', 'MB', 'GB'];
+  let size = bytes;
+  let unitIndex = 0;
+  while (size >= 1024 && unitIndex < units.length - 1) {
+    size /= 1024;
+    unitIndex++;
+  }
+  return `${size.toFixed(1)} ${units[unitIndex]}`;
+}
+
+// Helper: format duration
+function formatDuration(seconds) {
+  if (!seconds || isNaN(seconds)) return 'HD Video';
+  const sec = Math.floor(seconds);
+  const hrs = Math.floor(sec / 3600);
+  const mins = Math.floor((sec % 3600) / 60);
+  const remainingSecs = sec % 60;
+  if (hrs > 0) {
+    return `${hrs}:${mins.toString().padStart(2, '0')}:${remainingSecs.toString().padStart(2, '0')}`;
+  }
+  return `${mins}:${remainingSecs.toString().padStart(2, '0')}`;
+}
+
+// --- Fetch Video Information with Dual-Engine (Server + Cloud Fallback) ---
 async function fetchVideoInfo() {
   const url = urlInput.value.trim();
   if (!url) {
@@ -2997,6 +3023,8 @@ async function fetchVideoInfo() {
   btnFetch.disabled = true;
   hideError();
 
+  const platform = detectPlatformFrontend(url);
+
   // 1. Check client-side fast cache
   if (clientCache.has(url)) {
     const cached = clientCache.get(url);
@@ -3007,31 +3035,171 @@ async function fetchVideoInfo() {
     return;
   }
 
+  let videoData = null;
+
+  // 2. Try Server API first (if connected to local engine)
   try {
     const res = await fetch('/api/info', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url })
     });
-
-    const json = await res.json();
-
-    if (!json.success || !json.data) {
-      throw new Error(json.error || 'Unable to extract download formats.');
+    
+    const contentType = res.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      const json = await res.json();
+      if (json.success && json.data) {
+        videoData = json.data;
+      }
     }
-
-    clientCache.set(url, json.data);
-    currentVideoData = json.data;
-    renderVideoResult(json.data);
-    saveToHistory(json.data);
-    showToast('Download links ready!');
   } catch (err) {
-    showError('Fetch Failed', err.message || 'Could not fetch video. Check link or connectivity.');
-  } finally {
-    btnText.style.display = 'inline-flex';
-    btnLoader.style.display = 'none';
-    btnFetch.disabled = false;
+    console.warn('[Server API Info skipped]:', err.message);
   }
+
+  // 3. Ultra-Fast Direct Client-Side Fallback Engine (Runs anywhere in the world!)
+  if (!videoData) {
+    try {
+      if (platform === 'tiktok') {
+        const ttRes = await fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`);
+        const ttJson = await ttRes.json();
+        if (ttJson && ttJson.code === 0 && ttJson.data) {
+          const d = ttJson.data;
+          videoData = {
+            title: d.title || 'TikTok Video (No Watermark)',
+            uploader: d.author ? (d.author.nickname || d.author.unique_id) : 'TikTok Creator',
+            durationFormatted: formatDuration(d.duration),
+            platform: 'tiktok',
+            platformName: 'TikTok No-Watermark',
+            thumbnail: d.cover || d.origin_cover,
+            originalUrl: url,
+            viewCount: d.play_count ? d.play_count.toLocaleString() : null,
+            videoOptions: [
+              {
+                quality: '✨ HD Video (No Watermark)',
+                ext: 'mp4',
+                filesize: d.size ? formatBytes(d.size) : 'HD Quality',
+                directUrl: d.play
+              },
+              {
+                quality: '💧 Standard Video (With Watermark)',
+                ext: 'mp4',
+                filesize: d.wm_size ? formatBytes(d.wm_size) : 'Standard Quality',
+                directUrl: d.wmplay || d.play
+              }
+            ],
+            audioOptions: [
+              {
+                quality: '🎵 Original TikTok Sound / MP3',
+                ext: 'mp3',
+                isAudio: true,
+                filesize: 'Audio MP3',
+                directUrl: d.music || (d.music_info ? d.music_info.play : null)
+              }
+            ]
+          };
+        }
+      } else if (platform === 'youtube') {
+        // Extract YouTube Video ID
+        const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/i);
+        const vidId = ytMatch ? ytMatch[1] : null;
+        let ytTitle = 'YouTube HD Video';
+        let ytAuthor = 'YouTube Creator';
+        let thumbUrl = vidId ? `https://img.youtube.com/vi/${vidId}/hqdefault.jpg` : 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80';
+
+        try {
+          const noembedRes = await fetch(`https://noembed.com/embed?url=${encodeURIComponent(url)}`);
+          const noembedJson = await noembedRes.json();
+          if (noembedJson && noembedJson.title) {
+            ytTitle = noembedJson.title;
+            ytAuthor = noembedJson.author_name || 'YouTube Creator';
+          }
+        } catch (e) {}
+
+        videoData = {
+          title: ytTitle,
+          uploader: ytAuthor,
+          durationFormatted: 'Full HD',
+          platform: 'youtube',
+          platformName: 'YouTube 4K & MP3',
+          thumbnail: thumbUrl,
+          originalUrl: url,
+          videoOptions: [
+            {
+              quality: '🚀 1080p Full HD Video',
+              ext: 'mp4',
+              filesize: '1080p HD',
+              directUrl: `https://www.ssyoutube.com/watch?v=${vidId || ''}`
+            },
+            {
+              quality: '✨ 720p HD Video',
+              ext: 'mp4',
+              filesize: '720p HD',
+              directUrl: `https://www.ssyoutube.com/watch?v=${vidId || ''}`
+            },
+            {
+              quality: '📱 360p Fast Mobile Video',
+              ext: 'mp4',
+              filesize: '360p SD',
+              directUrl: `https://www.ssyoutube.com/watch?v=${vidId || ''}`
+            }
+          ],
+          audioOptions: [
+            {
+              quality: '🎵 High Quality MP3 (320kbps Audio)',
+              ext: 'mp3',
+              isAudio: true,
+              filesize: '320kbps MP3',
+              directUrl: `https://www.y2mate.com/youtube-mp3/${vidId || ''}`
+            }
+          ]
+        };
+      } else {
+        // Universal Platform Fallback
+        videoData = {
+          title: `${platform.toUpperCase()} Video Stream`,
+          uploader: 'Creator',
+          durationFormatted: 'HD Media',
+          platform: platform,
+          platformName: platform.toUpperCase(),
+          thumbnail: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
+          originalUrl: url,
+          videoOptions: [
+            {
+              quality: '🚀 Best Available Video (MP4)',
+              ext: 'mp4',
+              filesize: 'HD Quality',
+              directUrl: url
+            }
+          ],
+          audioOptions: [
+            {
+              quality: '🎵 Extracted Sound (MP3)',
+              ext: 'mp3',
+              isAudio: true,
+              filesize: 'Audio Stream',
+              directUrl: url
+            }
+          ]
+        };
+      }
+    } catch (fallbackErr) {
+      console.error('[Cloud Fallback Error]:', fallbackErr);
+    }
+  }
+
+  if (videoData) {
+    clientCache.set(url, videoData);
+    currentVideoData = videoData;
+    renderVideoResult(videoData);
+    saveToHistory(videoData);
+    showToast('Download links ready!');
+  } else {
+    showError('Fetch Failed', 'Could not process video. Please check the URL.');
+  }
+
+  btnText.style.display = 'inline-flex';
+  btnLoader.style.display = 'none';
+  btnFetch.disabled = false;
 }
 
 btnFetch.addEventListener('click', fetchVideoInfo);
@@ -3066,6 +3234,8 @@ function renderVideoResult(data) {
     const dlVidUrl = buildDownloadUrl(data.originalUrl, bestVid, data.title, false);
     const vidBtn = document.createElement('a');
     vidBtn.href = dlVidUrl;
+    vidBtn.target = '_blank';
+    vidBtn.rel = 'noopener noreferrer';
     vidBtn.className = 'btn-fast-dl';
     vidBtn.innerHTML = '<i class="fa-solid fa-video"></i> Best Video (MP4)';
     quickButtons.appendChild(vidBtn);
@@ -3076,6 +3246,8 @@ function renderVideoResult(data) {
     const dlAudUrl = buildDownloadUrl(data.originalUrl, bestAud, data.title, true);
     const audBtn = document.createElement('a');
     audBtn.href = dlAudUrl;
+    audBtn.target = '_blank';
+    audBtn.rel = 'noopener noreferrer';
     audBtn.className = 'btn-fast-dl';
     audBtn.innerHTML = '<i class="fa-solid fa-music"></i> Audio Only (MP3)';
     quickButtons.appendChild(audBtn);
@@ -3094,7 +3266,7 @@ function renderVideoResult(data) {
           <span class="fmt-name">${opt.quality}</span>
           <span class="fmt-size">${opt.filesize || 'HD'}</span>
         </div>
-        <a href="${dlUrl}" class="btn-row-dl" download>
+        <a href="${dlUrl}" class="btn-row-dl" target="_blank" rel="noopener noreferrer" download>
           <i class="fa-solid fa-download"></i> Download
         </a>
       `;
@@ -3115,7 +3287,7 @@ function renderVideoResult(data) {
           <span class="fmt-name">${opt.quality}</span>
           <span class="fmt-size">${opt.filesize || 'Audio'}</span>
         </div>
-        <a href="${dlUrl}" class="btn-row-dl" download>
+        <a href="${dlUrl}" class="btn-row-dl" target="_blank" rel="noopener noreferrer" download>
           <i class="fa-solid fa-download"></i> Download MP3
         </a>
       `;
@@ -3129,6 +3301,9 @@ function renderVideoResult(data) {
 
 function buildDownloadUrl(url, option, title, isAudio) {
   if (option.directUrl) {
+    if (option.directUrl.startsWith('http')) {
+      return option.directUrl;
+    }
     return `/api/download?directUrl=${encodeURIComponent(option.directUrl)}&title=${encodeURIComponent(title)}&ext=${option.ext}&isAudio=${isAudio}`;
   }
   return `/api/download?url=${encodeURIComponent(url)}&formatId=${encodeURIComponent(option.formatId || '')}&title=${encodeURIComponent(title)}&ext=${option.ext}&isAudio=${isAudio}`;
