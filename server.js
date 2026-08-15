@@ -647,9 +647,16 @@ app.get('/api/download', async (req, res) => {
   }
 });
 
-// Root fallback to index.html
+// Root fallback to index.html (safe for both root and public directory structures)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  const publicIndex = path.join(__dirname, 'public', 'index.html');
+  const rootIndex = path.join(__dirname, 'index.html');
+  if (fs.existsSync(publicIndex)) {
+    return res.sendFile(publicIndex);
+  } else if (fs.existsSync(rootIndex)) {
+    return res.sendFile(rootIndex);
+  }
+  res.send('<h1>Awais Download Fast is active!</h1>');
 });
 
 // Start Server on 0.0.0.0 for LAN & Mobile accessibility (when not on serverless)

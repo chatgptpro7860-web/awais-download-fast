@@ -1,0 +1,18 @@
+{
+  "name": "Awais Download Fast",
+  "short_name": "AwaisDownload",
+  "description": "Fast Video & MP3 Downloader for YouTube, TikTok, Instagram and more - 14 August Independence Day Edition",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080b12",
+  "theme_color": "#00f2fe",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

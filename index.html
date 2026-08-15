@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Awais Download Fast - Universal Video & Audio Downloader</title>
+  <meta name="description" content="Download high quality videos and MP3 audio from YouTube, Instagram, TikTok, Facebook, Twitter and more with Awais Download Fast. Special 14 August Independence Day Edition.">
+  <meta name="theme-color" content="#00f2fe">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Awais Download">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons for clean UI -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- QRCode.js for Mobile Network Link -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Cinematic Welcome Splash Screen -->
+  <div id="welcomeSplash" class="welcome-splash">
+    <div class="splash-particles">
+      <div class="particle p1"></div>
+      <div class="particle p2"></div>
+      <div class="particle p3"></div>
+      <div class="particle p4"></div>
+      <div class="particle p5"></div>
+    </div>
+    <div class="splash-container">
+      <div class="splash-logo-glow">
+        <div class="splash-logo">
+          <i class="fa-solid fa-bolt-lightning"></i>
+        </div>
+      </div>
+      <div class="splash-badge azadi-badge">
+        <span class="flag-icon">🇵🇰</span> 14 AUGUST INDEPENDENCE DAY SPECIAL RELEASE <span class="flag-icon">🇵🇰</span>
+      </div>
+      <h1 class="splash-title">
+        WELCOME TO <br>
+        <span>AWAIS DOWNLOAD FAST</span>
+      </h1>
+      <p class="splash-subtitle">Download 4K Videos & MP3 from YouTube, Instagram, TikTok & 1000+ Sites in Seconds</p>
+      
+      <div class="splash-loader-bar">
+        <div class="splash-progress"></div>
+      </div>
+
+      <div class="splash-actions">
+        <button id="btnSkipIntro" class="splash-enter-btn">
+          <span>Enter Application</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Dynamic Background Glow Mesh -->
+  <div class="background-glow" id="backgroundGlow">
+    <div class="glow-sphere sphere-1"></div>
+    <div class="glow-sphere sphere-2"></div>
+    <div class="glow-sphere sphere-3"></div>
+    <div class="glow-sphere sphere-4"></div>
+    <div class="floating-grid-mesh"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-bolt-lightning"></i>
+        </div>
+        <div class="brand-text">
+          <h1 class="brand-title">AWAIS <span>DOWNLOAD FAST</span></h1>
+          <span class="brand-badge azadi-pill">🇵🇰 14 AUG</span>
+        </div>
+      </div>
+
+      <!-- Desktop Header Actions -->
+      <div class="header-actions desktop-only">
+        <button id="btnDownloadAppModal" class="action-btn btn-highlight" title="Download App for Windows PC & Mobile">
+          <i class="fa-solid fa-cloud-arrow-down"></i>
+          <span>Download App (.EXE)</span>
+        </button>
+        <button id="btnAbout" class="action-btn" title="About Awais Download Fast">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>About</span>
+        </button>
+        <button id="btnCopyright" class="action-btn" title="Copyright Claim & DMCA Policy">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Copyright Claim</span>
+        </button>
+        <button id="btnMobileQr" class="action-btn" title="Open on Mobile / WiFi QR Code">
+          <i class="fa-solid fa-qrcode"></i>
+          <span>Mobile / WiFi</span>
+        </button>
+        <button id="btnApiDocs" class="action-btn" title="Developer API">
+          <i class="fa-solid fa-code"></i>
+          <span>REST API</span>
+        </button>
+        <button id="btnHistory" class="action-btn" title="Download History">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span id="historyBadge" class="badge">0</span>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button id="btnMobileMenu" class="mobile-menu-toggle mobile-only" title="Open Menu">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Slide-out Drawer Menu -->
+  <div id="mobileDrawer" class="mobile-drawer-overlay" style="display: none;">
+    <div class="mobile-drawer-content">
+      <div class="mobile-drawer-header">
+        <div class="brand">
+          <div class="brand-icon-sm">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <span class="drawer-brand-title">AWAIS <span>DOWNLOAD</span></span>
+        </div>
+        <button id="btnCloseMobileDrawer" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="mobile-drawer-body">
+        <div class="drawer-section-title">SPECIAL EDITION</div>
+        <div class="drawer-azadi-banner">
+          <span>🇵🇰</span> 14 August Independence Day Edition
+        </div>
+
+        <div class="drawer-section-title">QUICK ACTIONS</div>
+        <button id="btnDrawerDownloadApp" class="drawer-nav-item highlight">
+          <i class="fa-solid fa-cloud-arrow-down"></i>
+          <div>
+            <strong>Download / Install App</strong>
+            <small>Windows .EXE & Mobile PWA</small>
+          </div>
+        </button>
+        <button id="btnDrawerAbout" class="drawer-nav-item">
+          <i class="fa-solid fa-circle-info"></i>
+          <div>
+            <strong>About Awais Download Fast</strong>
+            <small>Creator & Launch Details</small>
+          </div>
+        </button>
+        <button id="btnDrawerCopyright" class="drawer-nav-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <div>
+            <strong>Copyright Claim & DMCA</strong>
+            <small>Legal Notice & Fair Use Policy</small>
+          </div>
+        </button>
+        <button id="btnDrawerMobileQr" class="drawer-nav-item">
+          <i class="fa-solid fa-qrcode"></i>
+          <div>
+            <strong>Mobile WiFi / QR Code</strong>
+            <small>Share with other phones on WiFi</small>
+          </div>
+        </button>
+        <button id="btnDrawerHistory" class="drawer-nav-item">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <div>
+            <strong>Download History</strong>
+            <small>View and re-download recent files</small>
+          </div>
+        </button>
+        <button id="btnDrawerApiDocs" class="drawer-nav-item">
+          <i class="fa-solid fa-code"></i>
+          <div>
+            <strong>REST API Docs</strong>
+            <small>Integration API for developers</small>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    
+    <!-- 14 August Celebratory Badge -->
+    <div class="azadi-ribbon">
+      <div class="azadi-ribbon-content">
+        <span class="azadi-flag">🇵🇰</span>
+        <span class="azadi-text"><strong>14 August Special Launch:</strong> Dedicated to Pakistan Independence Day &bull; 100% Free Forever</span>
+        <span class="azadi-flag">🇵🇰</span>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-tag">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> ⚡ Ultra-Fast 120 FPS High-Speed Media Engine
+      </div>
+      <h2 class="hero-title">Download Videos & MP3 in <span>Seconds</span></h2>
+      <p class="hero-desc">Supports YouTube (4K/1080p), Instagram Reels, TikTok (No Watermark), Facebook, Twitter/X, and 1000+ platforms with ultra-fast direct streaming.</p>
+    </section>
+
+    <!-- Platform Selector Tabs -->
+    <nav class="platform-tabs" role="tablist">
+      <button class="tab-btn active" data-platform="all">
+        <i class="fa-solid fa-sparkles"></i>
+        <span>Smart All-in-One</span>
+      </button>
+      <button class="tab-btn" data-platform="youtube">
+        <i class="fa-brands fa-youtube" style="color: #ff0000;"></i>
+        <span>YouTube</span>
+      </button>
+      <button class="tab-btn" data-platform="instagram">
+        <i class="fa-brands fa-instagram" style="color: #e1306c;"></i>
+        <span>Instagram</span>
+      </button>
+      <button class="tab-btn" data-platform="tiktok">
+        <i class="fa-brands fa-tiktok" style="color: #00f2fe;"></i>
+        <span>TikTok</span>
+      </button>
+      <button class="tab-btn" data-platform="other">
+        <i class="fa-solid fa-globe" style="color: #a855f7;"></i>
+        <span>Other Sites</span>
+      </button>
+    </nav>
+
+    <!-- Downloader Box -->
+    <section class="downloader-card">
+      <div class="input-wrapper">
+        <div class="platform-detect-icon" id="detectedPlatformIcon">
+          <i class="fa-solid fa-link"></i>
+        </div>
+        <input 
+          type="url" 
+          id="urlInput" 
+          placeholder="Paste video link here (e.g. YouTube, Instagram Reel, TikTok, Facebook...)"
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <button id="btnClear" class="input-inline-btn" title="Clear input" style="display: none;">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <button id="btnPaste" class="input-inline-btn paste-btn" title="Paste from clipboard">
+          <i class="fa-solid fa-paste"></i>
+          <span>Paste</span>
+        </button>
+      </div>
+
+      <div class="input-footer">
+        <div class="quick-hints" id="platformHint">
+          <i class="fa-solid fa-circle-info"></i> Auto-detects platform automatically with in-memory instant speed cache.
+        </div>
+        <button id="btnFetch" class="btn-primary">
+          <span class="btn-text">
+            <i class="fa-solid fa-arrow-down"></i> Get Download Links
+          </span>
+          <span class="btn-loader" style="display: none;">
+            <i class="fa-solid fa-circle-notch fa-spin"></i> Fetching...
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Error Message Display -->
+    <div id="errorBox" class="alert-box error" style="display: none;">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <div class="alert-content">
+        <h4 id="errorTitle">Fetch Failed</h4>
+        <p id="errorMessage">Please check the link and try again.</p>
+      </div>
+      <button class="alert-close" onclick="this.parentElement.style.display='none'">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Result & Download Section -->
+    <section id="resultSection" class="result-card" style="display: none;">
+      <div class="media-details">
+        <div class="thumbnail-wrapper">
+          <img id="mediaThumbnail" src="" alt="Video thumbnail" class="media-thumb">
+          <div class="duration-badge" id="mediaDuration">0:00</div>
+          <div class="platform-badge" id="mediaPlatform">
+            <i class="fa-brands fa-youtube"></i> YouTube
+          </div>
+        </div>
+
+        <div class="media-info">
+          <h3 id="mediaTitle" class="media-title">Video Title</h3>
+          <div class="media-meta">
+            <span class="meta-item" id="mediaAuthor">
+              <i class="fa-solid fa-user-circle"></i> <span>Channel Name</span>
+            </span>
+            <span class="meta-item" id="mediaViews" style="display: none;">
+              <i class="fa-solid fa-eye"></i> <span>0 views</span>
+            </span>
+          </div>
+
+          <!-- Fast 1-Click Action Buttons -->
+          <div class="quick-download-strip">
+            <div class="strip-label">⚡ Fast 1-Click Download Options:</div>
+            <div class="strip-buttons" id="quickButtons">
+              <!-- Dynamically inserted -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Format Selection Tabs -->
+      <div class="formats-container">
+        <div class="formats-header">
+          <div class="format-tabs">
+            <button class="fmt-tab active" data-fmt="video">
+              <i class="fa-solid fa-video"></i> Video Formats (MP4)
+            </button>
+            <button class="fmt-tab" data-fmt="audio">
+              <i class="fa-solid fa-music"></i> Audio & MP3
+            </button>
+          </div>
+        </div>
+
+        <!-- Video Formats Table -->
+        <div class="formats-list" id="videoFormatsList">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Audio Formats Table -->
+        <div class="formats-list" id="audioFormatsList" style="display: none;">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Platform Feature Cards with Desktop Animations -->
+    <section class="features-grid">
+      <div class="feature-card animated-card">
+        <div class="feature-icon yt-icon">
+          <i class="fa-brands fa-youtube"></i>
+        </div>
+        <div class="feature-body">
+          <h3>YouTube Studio 4K</h3>
+          <p>Download 4K, 1080p, 720p 60fps HD Videos, YouTube Shorts, and high-bitrate 320kbps MP3.</p>
+        </div>
+      </div>
+
+      <div class="feature-card animated-card">
+        <div class="feature-icon insta-icon">
+          <i class="fa-brands fa-instagram"></i>
+        </div>
+        <div class="feature-body">
+          <h3>Instagram Reels Hub</h3>
+          <p>Instant download for Instagram Reels, IGTV, Photos, and Video Posts in crisp original quality.</p>
+        </div>
+      </div>
+
+      <div class="feature-card animated-card">
+        <div class="feature-icon tiktok-icon">
+          <i class="fa-brands fa-tiktok"></i>
+        </div>
+        <div class="feature-body">
+          <h3>TikTok No Watermark</h3>
+          <p>Download clean TikTok videos without watermark and extract original TikTok audio/music.</p>
+        </div>
+      </div>
+
+      <div class="feature-card animated-card">
+        <div class="feature-icon all-icon">
+          <i class="fa-solid fa-desktop"></i>
+        </div>
+        <div class="feature-body">
+          <h3>Standalone Desktop .EXE</h3>
+          <p>Double-click the desktop app anytime. Runs independently even when IDE/terminals are off.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Download App Modal (Windows .EXE & Mobile PWA) -->
+  <div id="downloadAppModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-cloud-arrow-down"></i> Download "Awais Download Fast" App</h3>
+        <button class="modal-close" id="btnCloseDownloadApp"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-subtitle">Install or download <strong>Awais Download Fast</strong> directly onto your PC as a native <code>.exe</code> executable or on Mobile as a 1-tap app:</p>
+        
+        <div class="app-download-grid">
+          <!-- PC Native EXE Option -->
+          <div class="app-option-card">
+            <div class="option-badge">RECOMMENDED FOR PC</div>
+            <div class="option-header">
+              <i class="fa-brands fa-windows" style="color: #00f2fe; font-size: 30px;"></i>
+              <div>
+                <h4>Windows Native .EXE App</h4>
+                <p>Direct executable &bull; Zero extraction needed</p>
+              </div>
+            </div>
+            <ul class="option-perks">
+              <li><i class="fa-solid fa-check"></i> Direct <strong>Awais-Download-Fast.exe</strong> binary</li>
+              <li><i class="fa-solid fa-check"></i> Starts server silently without command window</li>
+              <li><i class="fa-solid fa-check"></i> Creates instant Desktop Shortcut on launch</li>
+            </ul>
+            <a href="/api/download-exe" class="btn-download-app-zip" download="Awais-Download-Fast.exe">
+              <i class="fa-solid fa-download"></i> Download Windows App (.EXE)
+            </a>
+            <div class="alternative-pc-links">
+              <a href="/api/download-installer/windows" class="zip-backup-link" download="Awais-Download-Fast-Setup.bat">
+                <i class="fa-solid fa-bolt"></i> 1-Click Auto Setup (.bat)
+              </a>
+              <span class="sep">&bull;</span>
+              <a href="/api/download-app" class="zip-backup-link" download="Awais-Download-Fast-v1.0.zip">
+                <i class="fa-solid fa-file-zipper"></i> Full .ZIP Package
+              </a>
+            </div>
+          </div>
+
+          <!-- Mobile PWA Option -->
+          <div class="app-option-card">
+            <div class="option-badge mobile-badge">MOBILE INSTANT</div>
+            <div class="option-header">
+              <i class="fa-solid fa-mobile-screen" style="color: #9333ea; font-size: 30px;"></i>
+              <div>
+                <h4>Mobile App (Android / iPhone)</h4>
+                <p>Install directly to your phone home screen</p>
+              </div>
+            </div>
+            <ul class="option-perks">
+              <li><i class="fa-solid fa-check"></i> 1-Tap native fullscreen mobile app</li>
+              <li><i class="fa-solid fa-check"></i> Instant fast downloads from your phone</li>
+              <li><i class="fa-solid fa-check"></i> No app store needed / Zero storage wasted</li>
+            </ul>
+            <button id="btnPwaInstall" class="btn-install-pwa">
+              <i class="fa-solid fa-mobile-screen-button"></i> 1-Tap Install Mobile App
+            </button>
+            <div class="mobile-instruction-hint">
+              <small><i class="fa-solid fa-info-circle"></i> On iOS Safari, tap <strong>Share</strong> &rarr; <strong>Add to Home Screen</strong>.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="api-share-box">
+          <div class="api-share-title">
+            <i class="fa-solid fa-link"></i> Direct .EXE App Download Link (Share with anyone):
+          </div>
+          <div class="network-url-box">
+            <input type="text" id="appApiUrlInput" value="" readonly>
+            <button id="btnCopyAppUrl" class="btn-copy">
+              <i class="fa-solid fa-copy"></i> Copy Link
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Modal -->
+  <div id="aboutModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-circle-info"></i> About Awais Download Fast</h3>
+        <button class="modal-close" id="btnCloseAbout"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="about-hero-box">
+          <div class="about-logo">
+            <i class="fa-solid fa-bolt-lightning"></i>
+          </div>
+          <div class="about-hero-details">
+            <h3>Awais Download Fast <span class="badge azadi-pill">🇵🇰 14 August Edition</span></h3>
+            <p>High Performance Multi-Platform Video & Audio Extraction Suite</p>
+          </div>
+        </div>
+
+        <div class="about-meta-grid">
+          <div class="about-meta-card">
+            <div class="meta-icon"><i class="fa-solid fa-user-tie"></i></div>
+            <div class="meta-text">
+              <span class="meta-label">Developer & Creator</span>
+              <strong class="meta-val">Awais</strong>
+            </div>
+          </div>
+
+          <div class="about-meta-card">
+            <div class="meta-icon"><i class="fa-solid fa-calendar-star"></i></div>
+            <div class="meta-text">
+              <span class="meta-label">Official Launch Date</span>
+              <strong class="meta-val">14 August (Pakistan Independence Day) 🇵🇰</strong>
+            </div>
+          </div>
+
+          <div class="about-meta-card">
+            <div class="meta-icon"><i class="fa-solid fa-gauge-high"></i></div>
+            <div class="meta-text">
+              <span class="meta-label">Processing Engine</span>
+              <strong class="meta-val">120 FPS Direct Stream Engine v1.0</strong>
+            </div>
+          </div>
+
+          <div class="about-meta-card">
+            <div class="meta-icon"><i class="fa-solid fa-shield-heart"></i></div>
+            <div class="meta-text">
+              <span class="meta-label">License & Cost</span>
+              <strong class="meta-val">100% Free & Unlimited</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-content-section">
+          <h4><i class="fa-solid fa-bullseye"></i> Mission & Vision</h4>
+          <p>
+            <strong>Awais Download Fast</strong> was built with a clear purpose: to give users a blistering fast, beautiful, and unrestricted tool to backup, stream, and download their favorite media from YouTube, Instagram, TikTok, Facebook, Twitter, and over 1,000 websites without annoying advertisements, popups, or quality throttling.
+          </p>
+          <p>
+            Launched proudly on <strong>14 August (Pakistan Independence Day)</strong>, this application is dedicated to freedom of access, seamless user experience, and state-of-the-art software craftsmanship.
+          </p>
+        </div>
+
+        <div class="about-content-section">
+          <h4><i class="fa-solid fa-hard-drive"></i> Cloud & Storage Integration</h4>
+          <p>
+            The engine is designed for zero clutter. You can store your downloaded videos and engine plugins directly in your local directory, network storage, or sync them with <strong>Google Drive / Cloud storage</strong> for effortless universal access across all your devices.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright Claim & DMCA Policy Modal -->
+  <div id="copyrightModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-shield-halved"></i> Copyright Claim & DMCA Policy</h3>
+        <button class="modal-close" id="btnCloseCopyright"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="legal-notice-box">
+          <div class="legal-notice-icon">
+            <i class="fa-solid fa-scale-balanced"></i>
+          </div>
+          <div>
+            <h4>Legal Disclaimer & Fair Use Notice</h4>
+            <p>Please read our intellectual property rights and fair use policies below.</p>
+          </div>
+        </div>
+
+        <div class="legal-section">
+          <h5>1. Intellectual Property & No-Hosting Disclaimer</h5>
+          <p>
+            <strong>Awais Download Fast</strong> is a client-side media transformer and personal backup utility tool. This service <strong>does NOT host, store, archive, or distribute</strong> any copyrighted media files on its servers. All media data is streamed on-the-fly directly from public third-party content delivery networks (CDNs) requested by the user.
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h5>2. Fair Use Compliance (Section 107 of US Copyright Act)</h5>
+          <p>
+            This tool is provided for personal archiving, educational research, transformative commentary, and fair use purposes under Section 107 of the US Copyright Act and comparable international fair use doctrines. Users are solely responsible for ensuring they possess the right to download and archive content.
+          </p>
+        </div>
+
+        <div class="legal-section">
+          <h5>3. DMCA Takedown & URL Removal Requests</h5>
+          <p>
+            If you are a copyright owner or an authorized agent and wish to request the blocking or disabling of specific video URLs from being processed by this tool, please submit an official DMCA takedown notice including:
+          </p>
+          <ul class="legal-bullets">
+            <li>Identification of the copyrighted work claimed to have been infringed.</li>
+            <li>Specific URL(s) to be blocked.</li>
+            <li>Your contact information (name, address, email address).</li>
+            <li>A statement made under penalty of perjury that you are the rightful copyright holder or authorized agent.</li>
+          </ul>
+          <div class="contact-card">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <strong>Official DMCA Contact Email:</strong>
+              <a href="mailto:contact.awaisdownload@gmail.com">contact.awaisdownload@gmail.com</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile WiFi QR Code Modal -->
+  <div id="qrModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-mobile-screen-button"></i> Mobile / WiFi Sharing</h3>
+        <button class="modal-close" id="btnCloseQr"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-subtitle">Scan this QR Code with your mobile phone camera to open <strong>Awais Download Fast</strong> directly on your phone browser:</p>
+        <div class="qr-code-box">
+          <div id="qrcode"></div>
+        </div>
+        <div class="network-url-box">
+          <input type="text" id="networkUrlInput" readonly>
+          <button id="btnCopyNetworkUrl" class="btn-copy">
+            <i class="fa-solid fa-copy"></i> Copy Link
+          </button>
+        </div>
+        <div class="wifi-note">
+          <i class="fa-solid fa-wifi"></i> Make sure your phone is connected to the same WiFi / Network.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- API Docs Modal -->
+  <div id="apiModal" class="modal-overlay" style="display: none;">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-code"></i> Awais Download Fast - REST API</h3>
+        <button class="modal-close" id="btnCloseApi"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-subtitle">Use this API to download videos from any Python script, Mobile App, cURL, or Web project.</p>
+        
+        <div class="api-doc-block">
+          <div class="api-endpoint"><span class="badge-get">GET</span> <code>/api/download-exe</code></div>
+          <p>Downloads the native standalone Windows <code>.exe</code> application binary.</p>
+        </div>
+
+        <div class="api-doc-block">
+          <div class="api-endpoint"><span class="badge-get">GET</span> <code>/api/about</code></div>
+          <p>Retrieves app metadata, creator details (Awais), and 14 August Launch stats.</p>
+        </div>
+
+        <div class="api-doc-block">
+          <div class="api-endpoint"><span class="badge-get">GET</span> <code>/api/copyright</code></div>
+          <p>Retrieves copyright claim guidelines, DMCA policies, and takedown procedures.</p>
+        </div>
+
+        <div class="api-doc-block">
+          <div class="api-endpoint"><span class="badge-post">POST</span> <code>/api/info</code></div>
+          <p>Extracts title, thumbnail, duration, and format options with fast in-memory cache.</p>
+          <pre><code>// Request Body
+{
+  "url": "https://www.youtube.com/watch?v=..."
+}</code></pre>
+        </div>
+
+        <div class="api-doc-block">
+          <div class="api-endpoint"><span class="badge-get">GET</span> <code>/api/download</code></div>
+          <p>Streams direct video or audio download.</p>
+          <pre><code>// Example Request
+GET /api/download?url=https://www.tiktok.com/...&isAudio=false&title=MyVideo</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- History Drawer -->
+  <div id="historyDrawer" class="drawer-overlay" style="display: none;">
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <h3><i class="fa-solid fa-clock-rotate-left"></i> Download History</h3>
+        <div class="drawer-actions">
+          <button id="btnClearHistory" class="btn-text-danger"><i class="fa-solid fa-trash"></i> Clear</button>
+          <button id="btnCloseHistory" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div id="historyList" class="history-list">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMsg">Success</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <p>⚡ <strong>Awais Download Fast</strong> &bull; Developed with &hearts; by <strong>Awais</strong></p>
+        <p class="footer-sub">🇵🇰 Launched on 14 August (Pakistan Independence Day) &bull; 100% Free & Fast</p>
+      </div>
+      <div class="footer-links">
+        <a href="javascript:void(0)" id="footerAboutLink"><i class="fa-solid fa-circle-info"></i> About</a>
+        <a href="javascript:void(0)" id="footerCopyrightLink"><i class="fa-solid fa-shield-halved"></i> Copyright Claim & DMCA</a>
+        <a href="javascript:void(0)" id="footerApiLink"><i class="fa-solid fa-code"></i> REST API</a>
+        <a href="javascript:void(0)" id="footerDownloadLink"><i class="fa-solid fa-desktop"></i> Windows App (.EXE)</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
