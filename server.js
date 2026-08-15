@@ -6,8 +6,20 @@ const { spawn, execFile } = require('child_process');
 const fs = require('fs');
 const axios = require('axios');
 const archiver = require('archiver');
-const { BIN_PATH, BIN_DIR, ensureEngine } = require('./scripts/init-engine');
-const { compileExe } = require('./scripts/build-exe');
+let BIN_PATH = path.join(__dirname, 'bin', process.platform === 'win32' ? 'yt-dlp.exe' : 'yt-dlp');
+let BIN_DIR = path.join(__dirname, 'bin');
+let ensureEngine = async () => BIN_PATH;
+try {
+  const engine = require('./scripts/init-engine');
+  BIN_PATH = engine.BIN_PATH;
+  BIN_DIR = engine.BIN_DIR;
+  ensureEngine = engine.ensureEngine;
+} catch (e) {}
+
+let compileExe = () => false;
+try {
+  compileExe = require('./scripts/build-exe').compileExe;
+} catch (e) {}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
