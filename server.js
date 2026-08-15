@@ -664,3 +664,5 @@ server.on('error', (err) => {
     console.error('[Server Error]:', err);
   }
 });
+
+module.exports = app;

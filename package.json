@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js",
-    "postinstall": "node scripts/init-engine.js"
+    "dev": "node --watch server.js"
   },
   "keywords": [
     "video-downloader",
