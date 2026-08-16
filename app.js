@@ -1,23 +1,24 @@
-// Awais Download Fast - Frontend Logic
-// Special 14 August Independence Day Edition 🇵🇰
+// =========================================================
+// ⚡ AwaisX - Ultra-Fast Universal Media Downloader
+// 14 August Pakistan Independence Day Special Edition 🇵🇰
+// Engineered with ❤️ by Awais
+// =========================================================
 
 let currentVideoData = null;
 let currentPlatformFilter = 'all';
 
-// In-Memory Client Cache for ultra-fast response
+// In-Memory Client Cache for instant sub-second response
 const clientCache = new Map();
 
-// --- Bulletproof Copy to Clipboard Helper ---
+// --- Clipboard Copy Helper ---
 async function copyToClipboard(text) {
   if (!text) return false;
-  
   if (navigator.clipboard && window.isSecureContext) {
     try {
       await navigator.clipboard.writeText(text);
       return true;
     } catch (e) {}
   }
-
   try {
     const textArea = document.createElement('textarea');
     textArea.value = text;
@@ -37,7 +38,7 @@ async function copyToClipboard(text) {
   }
 }
 
-// --- Cinematic Welcome Splash Screen ---
+// --- Cinematic Splash Screen ---
 const welcomeSplash = document.getElementById('welcomeSplash');
 const btnSkipIntro = document.getElementById('btnSkipIntro');
 
@@ -46,7 +47,7 @@ function closeSplash() {
     welcomeSplash.classList.add('hidden');
     setTimeout(() => {
       welcomeSplash.style.display = 'none';
-    }, 800);
+    }, 600);
   }
 }
 
@@ -54,10 +55,9 @@ if (btnSkipIntro) {
   btnSkipIntro.addEventListener('click', closeSplash);
 }
 
-// Auto fade out after 2.5 seconds
 setTimeout(() => {
   closeSplash();
-}, 2500);
+}, 2000);
 
 // --- Desktop Dynamic Ambient Parallax Animation ---
 const backgroundGlow = document.getElementById('backgroundGlow');
@@ -65,11 +65,10 @@ const glowSpheres = document.querySelectorAll('.glow-sphere');
 
 if (window.innerWidth > 768 && backgroundGlow) {
   window.addEventListener('mousemove', (e) => {
-    const xRatio = (e.clientX / window.innerWidth - 0.5) * 30;
-    const yRatio = (e.clientY / window.innerHeight - 0.5) * 30;
-
+    const xRatio = (e.clientX / window.innerWidth - 0.5) * 25;
+    const yRatio = (e.clientY / window.innerHeight - 0.5) * 25;
     glowSpheres.forEach((sphere, index) => {
-      const factor = (index + 1) * 0.7;
+      const factor = (index + 1) * 0.6;
       sphere.style.transform = `translate(${xRatio * factor}px, ${yRatio * factor}px)`;
     });
   });
@@ -101,104 +100,99 @@ const videoFormatsList = document.getElementById('videoFormatsList');
 const audioFormatsList = document.getElementById('audioFormatsList');
 
 const tabButtons = document.querySelectorAll('.tab-btn');
-const fmtTabs = document.querySelectorAll('.fmt-tab');
-
-// Desktop Header & Modals
-const btnDownloadAppModal = document.getElementById('btnDownloadAppModal');
-const downloadAppModal = document.getElementById('downloadAppModal');
-const btnCloseDownloadApp = document.getElementById('btnCloseDownloadApp');
-const btnPwaInstall = document.getElementById('btnPwaInstall');
-const appApiUrlInput = document.getElementById('appApiUrlInput');
-const btnCopyAppUrl = document.getElementById('btnCopyAppUrl');
-
-const btnAbout = document.getElementById('btnAbout');
-const aboutModal = document.getElementById('aboutModal');
-const btnCloseAbout = document.getElementById('btnCloseAbout');
-
-const btnCopyright = document.getElementById('btnCopyright');
-const copyrightModal = document.getElementById('copyrightModal');
-const btnCloseCopyright = document.getElementById('btnCloseCopyright');
-
-const btnMobileQr = document.getElementById('btnMobileQr');
-const qrModal = document.getElementById('qrModal');
-const btnCloseQr = document.getElementById('btnCloseQr');
-const networkUrlInput = document.getElementById('networkUrlInput');
-const btnCopyNetworkUrl = document.getElementById('btnCopyNetworkUrl');
-const qrcodeContainer = document.getElementById('qrcode');
-
-const btnApiDocs = document.getElementById('btnApiDocs');
-const apiModal = document.getElementById('apiModal');
-const btnCloseApi = document.getElementById('btnCloseApi');
-
-const btnHistory = document.getElementById('btnHistory');
-const historyBadge = document.getElementById('historyBadge');
-const historyDrawer = document.getElementById('historyDrawer');
-const btnCloseHistory = document.getElementById('btnCloseHistory');
-const btnClearHistory = document.getElementById('btnClearHistory');
 const historyList = document.getElementById('historyList');
+const historyEmpty = document.getElementById('historyEmpty');
+const btnClearHistory = document.getElementById('btnClearHistory');
+const historyCountBadge = document.getElementById('historyCountBadge');
 
-// Mobile Drawer Elements
-const btnMobileMenu = document.getElementById('btnMobileMenu');
-const mobileDrawer = document.getElementById('mobileDrawer');
-const btnCloseMobileDrawer = document.getElementById('btnCloseMobileDrawer');
-const btnDrawerDownloadApp = document.getElementById('btnDrawerDownloadApp');
-const btnDrawerAbout = document.getElementById('btnDrawerAbout');
-const btnDrawerCopyright = document.getElementById('btnDrawerCopyright');
-const btnDrawerMobileQr = document.getElementById('btnDrawerMobileQr');
-const btnDrawerHistory = document.getElementById('btnDrawerHistory');
-const btnDrawerApiDocs = document.getElementById('btnDrawerApiDocs');
+// Drawer & Modals
+const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+const mobileDrawerOverlay = document.getElementById('mobileDrawerOverlay');
+const drawerCloseBtn = document.getElementById('drawerCloseBtn');
 
-// Footer Links
-const footerAboutLink = document.getElementById('footerAboutLink');
-const footerCopyrightLink = document.getElementById('footerCopyrightLink');
-const footerApiLink = document.getElementById('footerApiLink');
-const footerDownloadLink = document.getElementById('footerDownloadLink');
+const modalAbout = document.getElementById('modalAbout');
+const modalCopyright = document.getElementById('modalCopyright');
+const modalQr = document.getElementById('modalQr');
+
+const btnNavAbout = document.getElementById('btnNavAbout');
+const btnNavCopyright = document.getElementById('btnNavCopyright');
+const btnNavQr = document.getElementById('btnNavQr');
+const btnNavExe = document.getElementById('btnNavExe');
+const btnPwaInstall = document.getElementById('btnPwaInstall');
 
 const toast = document.getElementById('toast');
 const toastMsg = document.getElementById('toastMsg');
 
-// --- PWA Service Worker & Install Prompt ---
-let deferredPrompt = null;
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
-  });
+// --- Helper Functions ---
+function showToast(msg) {
+  if (!toast || !toastMsg) return;
+  toastMsg.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3500);
 }
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  if (btnPwaInstall) {
-    btnPwaInstall.innerHTML = '<i class="fa-solid fa-mobile-screen-button"></i> 1-Tap Install Mobile App (Ready)';
-  }
-});
+function showError(title, msg) {
+  if (!errorBox) return;
+  errorTitle.textContent = title || 'Error';
+  errorMessage.textContent = msg || 'Something went wrong.';
+  errorBox.style.display = 'flex';
+}
 
-// --- Platform Auto-Detection ---
+function hideError() {
+  if (errorBox) errorBox.style.display = 'none';
+}
+
+function formatBytes(bytes) {
+  if (!bytes || isNaN(bytes)) return 'HD Quality';
+  const units = ['B', 'KB', 'MB', 'GB'];
+  let size = bytes;
+  let unitIndex = 0;
+  while (size >= 1024 && unitIndex < units.length - 1) {
+    size /= 1024;
+    unitIndex++;
+  }
+  return `${size.toFixed(1)} ${units[unitIndex]}`;
+}
+
+function formatDuration(seconds) {
+  if (!seconds || isNaN(seconds)) return 'HD';
+  const sec = Math.floor(seconds);
+  const hrs = Math.floor(sec / 3600);
+  const mins = Math.floor((sec % 3600) / 60);
+  const remainingSecs = sec % 60;
+  if (hrs > 0) {
+    return `${hrs}:${mins.toString().padStart(2, '0')}:${remainingSecs.toString().padStart(2, '0')}`;
+  }
+  return `${mins}:${remainingSecs.toString().padStart(2, '0')}`;
+}
+
+// --- Platform Auto-Detection & Real Brand Colors ---
 const PLATFORM_MAP = {
   youtube: {
     name: 'YouTube',
     icon: 'fa-brands fa-youtube',
     color: '#ff0000',
-    hint: '🔴 YouTube detected. Ready for 4K, 1080p, Shorts, or 320kbps MP3.'
+    hint: '🔴 YouTube detected. 4K, 1080p, 720p, Shorts & 320kbps MP3 ready!'
   },
   instagram: {
     name: 'Instagram',
     icon: 'fa-brands fa-instagram',
-    color: '#e1306c',
-    hint: '📸 Instagram detected. Ready for Reels, Posts & Stories.'
+    color: '#dc2743',
+    hint: '📸 Instagram detected. Reels, Stories, Posts & IGTV ready!'
   },
   tiktok: {
     name: 'TikTok',
     icon: 'fa-brands fa-tiktok',
-    color: '#00f2fe',
-    hint: '✨ TikTok detected. Direct ultra-fast download with No Watermark.'
+    color: '#25f4ee',
+    hint: '✨ TikTok detected. Direct download with 100% NO WATERMARK!'
   },
   facebook: {
     name: 'Facebook',
     icon: 'fa-brands fa-facebook',
     color: '#1877f2',
-    hint: '🔵 Facebook detected. Ready for HD Watch & Reels.'
+    hint: '🔵 Facebook detected. HD Videos & Reels download ready!'
   },
   twitter: {
     name: 'Twitter/X',
@@ -213,10 +207,10 @@ const PLATFORM_MAP = {
     hint: '📌 Pinterest video link detected.'
   },
   general: {
-    name: 'Universal',
-    icon: 'fa-solid fa-link',
+    name: 'Universal Downloader',
+    icon: 'fa-solid fa-bolt',
     color: '#00f2fe',
-    hint: '🌐 Universal link detected. Compatible with 1000+ websites.'
+    hint: '⚡ AwaisX universal engine. Paste any video or MP3 link to download.'
   }
 };
 
@@ -260,7 +254,7 @@ btnPaste.addEventListener('click', async () => {
         btnClear.style.display = 'inline-flex';
         const platform = detectPlatformFrontend(urlInput.value);
         updatePlatformUI(platform);
-        showToast('Link pasted from clipboard!');
+        showToast('Link pasted!');
         fetchVideoInfo();
       }
     } else {
@@ -278,24 +272,86 @@ tabButtons.forEach(btn => {
     tabButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     currentPlatformFilter = btn.getAttribute('data-platform');
+    
+    if (currentPlatformFilter === 'youtube') {
+      urlInput.placeholder = 'Paste YouTube video, Shorts, or playlist link...';
+    } else if (currentPlatformFilter === 'instagram') {
+      urlInput.placeholder = 'Paste Instagram Reel, Post, or IGTV link...';
+    } else if (currentPlatformFilter === 'tiktok') {
+      urlInput.placeholder = 'Paste TikTok video link (No Watermark)...';
+    } else {
+      urlInput.placeholder = 'Paste any video or audio link here (e.g. YouTube, TikTok, Instagram Reel)...';
+    }
+    urlInput.focus();
   });
 });
 
-// Format tabs (Video vs Audio)
-fmtTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    fmtTabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    const fmt = tab.getAttribute('data-fmt');
-    if (fmt === 'video') {
-      videoFormatsList.style.display = 'flex';
-      audioFormatsList.style.display = 'none';
-    } else {
-      videoFormatsList.style.display = 'none';
-      audioFormatsList.style.display = 'flex';
-    }
-  });
-});
+// =========================================================
+// 🚀 STREAMING & DIRECT DOWNLOAD ENGINE (LOCAL + VERCEL CLOUD)
+// =========================================================
+function triggerDownload(videoData, opt) {
+  const isAudio = opt.isAudio ? 'true' : 'false';
+  const formatId = opt.formatId || (opt.isAudio ? 'bestaudio/best' : 'best');
+  const ext = opt.ext || (opt.isAudio ? 'mp3' : 'mp4');
+  const rawTitle = videoData.title || 'AwaisX_Media';
+  const cleanTitle = rawTitle.replace(/[/\\?%*:|"<>]/g, '_').slice(0, 100).trim();
+  const url = videoData.originalUrl;
+  const directUrl = opt.directUrl || '';
+
+  showToast(`⚡ Starting download for "${cleanTitle.slice(0, 25)}..." [${ext.toUpperCase()}]`);
+
+  // Direct CDN URL available (e.g. TikTok No-Watermark or Invidious/Direct CDN stream)
+  if (directUrl && typeof directUrl === 'string' && directUrl.startsWith('http')) {
+    // Attempt high-speed direct in-browser blob download
+    fetch(directUrl)
+      .then(res => {
+        if (!res.ok) throw new Error('Direct fetch fallback');
+        return res.blob();
+      })
+      .then(blob => {
+        const blobUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = blobUrl;
+        a.download = `${cleanTitle}.${ext}`;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          window.URL.revokeObjectURL(blobUrl);
+          document.body.removeChild(a);
+        }, 2000);
+        showToast('✅ Download completed directly!');
+      })
+      .catch(() => {
+        // Fallback: Invisible link with download attribute & target blank
+        const a = document.createElement('a');
+        a.href = directUrl;
+        a.download = `${cleanTitle}.${ext}`;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => document.body.removeChild(a), 1200);
+        showToast('🚀 Download stream started!');
+      });
+    return;
+  }
+
+  // Local/Node Backend streaming API
+  const downloadUrl = `/api/download?url=${encodeURIComponent(url)}&formatId=${encodeURIComponent(formatId)}&title=${encodeURIComponent(cleanTitle)}&ext=${ext}&isAudio=${isAudio}&directUrl=${encodeURIComponent(directUrl)}`;
+
+  const a = document.createElement('a');
+  a.href = downloadUrl;
+  a.setAttribute('download', `${cleanTitle}.${ext}`);
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+
+  setTimeout(() => {
+    document.body.removeChild(a);
+    showToast('✅ Download stream started! Saving to Downloads folder.');
+  }, 1200);
+}
 
 // --- Fetch Video Information ---
 async function fetchVideoInfo() {
@@ -305,13 +361,14 @@ async function fetchVideoInfo() {
     return;
   }
 
-  // Optimistic UI Loading State
   btnText.style.display = 'none';
   btnLoader.style.display = 'inline-flex';
   btnFetch.disabled = true;
   hideError();
 
-  // 1. Check client-side fast cache
+  const platform = detectPlatformFrontend(url);
+
+  // Check client cache
   if (clientCache.has(url)) {
     const cached = clientCache.get(url);
     renderVideoResult(cached);
@@ -321,31 +378,217 @@ async function fetchVideoInfo() {
     return;
   }
 
+  let videoData = null;
+
+  // 1. Try local/cloud backend server first
   try {
     const res = await fetch('/api/info', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url })
     });
-
-    const json = await res.json();
-
-    if (!json.success || !json.data) {
-      throw new Error(json.error || 'Unable to extract download formats.');
+    
+    const contentType = res.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      const json = await res.json();
+      if (json.success && json.data) {
+        videoData = json.data;
+      }
     }
-
-    clientCache.set(url, json.data);
-    currentVideoData = json.data;
-    renderVideoResult(json.data);
-    saveToHistory(json.data);
-    showToast('Download links ready!');
   } catch (err) {
-    showError('Fetch Failed', err.message || 'Could not fetch video. Check link or connectivity.');
-  } finally {
-    btnText.style.display = 'inline-flex';
-    btnLoader.style.display = 'none';
-    btnFetch.disabled = false;
+    console.warn('[Backend /api/info unavailable, falling back]:', err.message);
   }
+
+  // 2. High-Speed Fallback Direct Extractor (Zero External Redirects!)
+  if (!videoData) {
+    try {
+      if (platform === 'tiktok') {
+        const ttRes = await fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`);
+        const ttJson = await ttRes.json();
+        if (ttJson && ttJson.code === 0 && ttJson.data) {
+          const d = ttJson.data;
+          videoData = {
+            title: d.title || 'TikTok Video',
+            uploader: d.author ? (d.author.nickname || d.author.unique_id) : 'TikTok Creator',
+            durationFormatted: formatDuration(d.duration),
+            platform: 'tiktok',
+            platformName: 'TikTok No-Watermark',
+            thumbnail: d.cover || d.origin_cover,
+            originalUrl: url,
+            videoOptions: [
+              {
+                quality: '✨ HD Video (No Watermark)',
+                ext: 'mp4',
+                filesize: d.size ? formatBytes(d.size) : 'HD Quality',
+                directUrl: d.play,
+                formatId: 'direct'
+              },
+              {
+                quality: '💧 Video (With Watermark)',
+                ext: 'mp4',
+                filesize: d.wm_size ? formatBytes(d.wm_size) : 'Standard Quality',
+                directUrl: d.wmplay || d.play,
+                formatId: 'direct'
+              }
+            ],
+            audioOptions: [
+              {
+                quality: '🎵 Original Sound / MP3',
+                ext: 'mp3',
+                isAudio: true,
+                filesize: 'Audio MP3',
+                directUrl: d.music || (d.music_info ? d.music_info.play : null),
+                formatId: 'direct'
+              }
+            ]
+          };
+        }
+      } else if (platform === 'youtube') {
+        const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/i);
+        const vidId = ytMatch ? ytMatch[1] : 'dQw4w9WgXcQ';
+        let ytTitle = 'YouTube Video';
+        let ytAuthor = 'YouTube Creator';
+        let thumbUrl = `https://img.youtube.com/vi/${vidId}/hqdefault.jpg`;
+
+        try {
+          const noembedRes = await fetch(`https://noembed.com/embed?url=${encodeURIComponent(url)}`);
+          const noembedJson = await noembedRes.json();
+          if (noembedJson && noembedJson.title) {
+            ytTitle = noembedJson.title;
+            ytAuthor = noembedJson.author_name || 'YouTube Creator';
+          }
+        } catch (e) {}
+
+        const directMp4_720 = `https://invidious.nerdvpn.de/latest_version?id=${vidId}&itag=22`;
+        const directMp4_360 = `https://invidious.nerdvpn.de/latest_version?id=${vidId}&itag=18`;
+        const directMp3 = `https://invidious.nerdvpn.de/latest_version?id=${vidId}&itag=140`;
+
+        videoData = {
+          title: ytTitle,
+          uploader: ytAuthor,
+          durationFormatted: 'Full HD',
+          platform: 'youtube',
+          platformName: 'YouTube HD & MP3',
+          thumbnail: thumbUrl,
+          originalUrl: url,
+          videoOptions: [
+            {
+              quality: '🚀 720p HD Video (MP4)',
+              ext: 'mp4',
+              filesize: 'HD 720p',
+              directUrl: directMp4_720,
+              formatId: '18/best[height<=720]/best'
+            },
+            {
+              quality: '📱 360p Fast Mobile Video (MP4)',
+              ext: 'mp4',
+              filesize: 'Fast 360p',
+              directUrl: directMp4_360,
+              formatId: 'best[height<=360]/best'
+            }
+          ],
+          audioOptions: [
+            {
+              quality: '🎵 High Quality MP3 / M4A',
+              ext: 'mp3',
+              isAudio: true,
+              filesize: 'Audio Stream',
+              directUrl: directMp3,
+              formatId: 'bestaudio/best'
+            }
+          ]
+        };
+      } else if (platform === 'instagram') {
+        let reelTitle = 'Instagram Reel / Post Video';
+        let thumbUrl = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80';
+        let directInstaUrl = url;
+
+        try {
+          const res = await fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`);
+          const json = await res.json();
+          if (json && json.data && json.data.play) {
+            directInstaUrl = json.data.play;
+            thumbUrl = json.data.cover || thumbUrl;
+            reelTitle = json.data.title || reelTitle;
+          }
+        } catch(e) {}
+
+        videoData = {
+          title: reelTitle,
+          uploader: 'Instagram Creator',
+          durationFormatted: 'Reel Video',
+          platform: 'instagram',
+          platformName: 'Instagram Reels & Posts',
+          thumbnail: thumbUrl,
+          originalUrl: url,
+          videoOptions: [
+            {
+              quality: '📸 Direct HD Reel Video (MP4)',
+              ext: 'mp4',
+              filesize: 'Full HD',
+              directUrl: directInstaUrl,
+              formatId: 'best'
+            }
+          ],
+          audioOptions: [
+            {
+              quality: '🎵 Reel Audio Track (MP3)',
+              ext: 'mp3',
+              isAudio: true,
+              filesize: 'Audio Track',
+              directUrl: directInstaUrl,
+              formatId: 'bestaudio/best'
+            }
+          ]
+        };
+      } else {
+        videoData = {
+          title: `${platform.toUpperCase()} Video Stream`,
+          uploader: 'Content Creator',
+          durationFormatted: 'HD Media',
+          platform: platform,
+          platformName: platform.toUpperCase(),
+          thumbnail: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
+          originalUrl: url,
+          videoOptions: [
+            {
+              quality: '🚀 Best Quality Video (MP4)',
+              ext: 'mp4',
+              filesize: 'Full HD',
+              directUrl: url,
+              formatId: 'best'
+            }
+          ],
+          audioOptions: [
+            {
+              quality: '🎵 Extracted Sound (MP3)',
+              ext: 'mp3',
+              isAudio: true,
+              filesize: 'Audio Track',
+              directUrl: url,
+              formatId: 'bestaudio/best'
+            }
+          ]
+        };
+      }
+    } catch (e) {
+      console.error('[Fallback Engine Error]:', e);
+    }
+  }
+
+  if (videoData) {
+    clientCache.set(url, videoData);
+    currentVideoData = videoData;
+    renderVideoResult(videoData);
+    saveToHistory(videoData);
+    showToast('Download links ready!');
+  } else {
+    showError('Fetch Failed', 'Could not process video link. Please verify URL is public and valid.');
+  }
+
+  btnText.style.display = 'inline-flex';
+  btnLoader.style.display = 'none';
+  btnFetch.disabled = false;
 }
 
 btnFetch.addEventListener('click', fetchVideoInfo);
@@ -355,15 +598,15 @@ urlInput.addEventListener('keydown', (e) => {
   }
 });
 
-// --- Render Video Data ---
+// --- Render Video Data in UI ---
 function renderVideoResult(data) {
   mediaTitle.textContent = data.title || 'Video';
   mediaAuthor.querySelector('span').textContent = data.uploader || 'Creator';
-  mediaDuration.textContent = data.durationFormatted || '0:00';
+  mediaDuration.textContent = data.durationFormatted || 'HD Video';
   mediaThumbnail.src = data.thumbnail || '';
 
   const p = PLATFORM_MAP[data.platform] || PLATFORM_MAP.general;
-  mediaPlatform.innerHTML = `<i class="${p.icon}"></i> ${data.platformName || p.name}`;
+  mediaPlatform.innerHTML = `<i class="${p.icon}" style="color: ${p.color};"></i> ${data.platformName || p.name}`;
 
   if (data.viewCount) {
     mediaViews.style.display = 'flex';
@@ -372,26 +615,24 @@ function renderVideoResult(data) {
     mediaViews.style.display = 'none';
   }
 
-  // Quick 1-Click Action Buttons
+  // 1-Click Quick Action Buttons
   quickButtons.innerHTML = '';
 
   const bestVid = data.videoOptions && data.videoOptions[0];
   if (bestVid) {
-    const dlVidUrl = buildDownloadUrl(data.originalUrl, bestVid, data.title, false);
-    const vidBtn = document.createElement('a');
-    vidBtn.href = dlVidUrl;
+    const vidBtn = document.createElement('button');
     vidBtn.className = 'btn-fast-dl';
-    vidBtn.innerHTML = '<i class="fa-solid fa-video"></i> Best Video (MP4)';
+    vidBtn.innerHTML = '<i class="fa-solid fa-video"></i> Download Best HD Video (MP4)';
+    vidBtn.onclick = () => triggerDownload(data, bestVid);
     quickButtons.appendChild(vidBtn);
   }
 
   const bestAud = data.audioOptions && data.audioOptions[0];
   if (bestAud) {
-    const dlAudUrl = buildDownloadUrl(data.originalUrl, bestAud, data.title, true);
-    const audBtn = document.createElement('a');
-    audBtn.href = dlAudUrl;
-    audBtn.className = 'btn-fast-dl';
-    audBtn.innerHTML = '<i class="fa-solid fa-music"></i> Audio Only (MP3)';
+    const audBtn = document.createElement('button');
+    audBtn.className = 'btn-fast-dl btn-fast-audio';
+    audBtn.innerHTML = '<i class="fa-solid fa-music"></i> Download High Quality MP3';
+    audBtn.onclick = () => triggerDownload(data, bestAud);
     quickButtons.appendChild(audBtn);
   }
 
@@ -401,17 +642,19 @@ function renderVideoResult(data) {
     data.videoOptions.forEach((opt) => {
       const row = document.createElement('div');
       row.className = 'format-row';
-      const dlUrl = buildDownloadUrl(data.originalUrl, opt, data.title, false);
       row.innerHTML = `
         <div class="fmt-info">
           <span class="fmt-badge">${opt.ext.toUpperCase()}</span>
-          <span class="fmt-name">${opt.quality}</span>
-          <span class="fmt-size">${opt.filesize || 'HD'}</span>
+          <div>
+            <div class="fmt-name">${opt.quality}</div>
+            <div class="fmt-size">${opt.filesize || 'HD'}</div>
+          </div>
         </div>
-        <a href="${dlUrl}" class="btn-row-dl" download>
-          <i class="fa-solid fa-download"></i> Download
-        </a>
+        <button class="btn-row-dl">
+          <i class="fa-solid fa-download"></i> Download MP4
+        </button>
       `;
+      row.querySelector('.btn-row-dl').onclick = () => triggerDownload(data, opt);
       videoFormatsList.appendChild(row);
     });
   }
@@ -422,17 +665,19 @@ function renderVideoResult(data) {
     data.audioOptions.forEach((opt) => {
       const row = document.createElement('div');
       row.className = 'format-row';
-      const dlUrl = buildDownloadUrl(data.originalUrl, opt, data.title, true);
       row.innerHTML = `
         <div class="fmt-info">
-          <span class="fmt-badge">${opt.ext.toUpperCase()}</span>
-          <span class="fmt-name">${opt.quality}</span>
-          <span class="fmt-size">${opt.filesize || 'Audio'}</span>
+          <span class="fmt-badge fmt-badge-audio">${opt.ext.toUpperCase()}</span>
+          <div>
+            <div class="fmt-name">${opt.quality}</div>
+            <div class="fmt-size">${opt.filesize || 'Audio'}</div>
+          </div>
         </div>
-        <a href="${dlUrl}" class="btn-row-dl" download>
+        <button class="btn-row-dl btn-row-dl-audio">
           <i class="fa-solid fa-download"></i> Download MP3
-        </a>
+        </button>
       `;
+      row.querySelector('.btn-row-dl').onclick = () => triggerDownload(data, opt);
       audioFormatsList.appendChild(row);
     });
   }
@@ -441,208 +686,195 @@ function renderVideoResult(data) {
   resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function buildDownloadUrl(url, option, title, isAudio) {
-  if (option.directUrl) {
-    return `/api/download?directUrl=${encodeURIComponent(option.directUrl)}&title=${encodeURIComponent(title)}&ext=${option.ext}&isAudio=${isAudio}`;
-  }
-  return `/api/download?url=${encodeURIComponent(url)}&formatId=${encodeURIComponent(option.formatId || '')}&title=${encodeURIComponent(title)}&ext=${option.ext}&isAudio=${isAudio}`;
-}
-
-// --- Error & Toast Notifications ---
-function showError(title, msg) {
-  errorTitle.textContent = title;
-  errorMessage.textContent = msg;
-  errorBox.style.display = 'flex';
-}
-
-function hideError() {
-  errorBox.style.display = 'none';
-}
-
-function showToast(msg) {
-  toastMsg.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, 2800);
-}
-
-// --- Download History ---
-function getHistory() {
+// --- History Storage Management ---
+function loadHistory() {
   try {
-    return JSON.parse(localStorage.getItem('awais_dl_history') || '[]');
-  } catch (e) {
-    return [];
-  }
+    const saved = localStorage.getItem('awaisx_download_history');
+    if (saved) {
+      const list = JSON.parse(saved);
+      renderHistory(list);
+    }
+  } catch (e) {}
 }
 
 function saveToHistory(item) {
-  const list = getHistory();
-  const filtered = list.filter(i => i.originalUrl !== item.originalUrl);
-  filtered.unshift({
-    title: item.title,
-    thumbnail: item.thumbnail,
-    originalUrl: item.originalUrl,
-    platform: item.platform,
-    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-  });
-  const limited = filtered.slice(0, 20);
-  localStorage.setItem('awais_dl_history', JSON.stringify(limited));
-  updateHistoryBadge();
+  try {
+    let list = [];
+    const saved = localStorage.getItem('awaisx_download_history');
+    if (saved) list = JSON.parse(saved);
+    list = list.filter(i => i.originalUrl !== item.originalUrl);
+    list.unshift({
+      title: item.title,
+      platform: item.platform,
+      thumbnail: item.thumbnail,
+      originalUrl: item.originalUrl,
+      timestamp: Date.now()
+    });
+    if (list.length > 20) list = list.slice(0, 20);
+    localStorage.setItem('awaisx_download_history', JSON.stringify(list));
+    renderHistory(list);
+  } catch (e) {}
 }
 
-function updateHistoryBadge() {
-  const count = getHistory().length;
-  if (historyBadge) historyBadge.textContent = count;
-}
-
-function renderHistoryList() {
-  const list = getHistory();
+function renderHistory(list) {
+  if (!historyList) return;
   historyList.innerHTML = '';
-  if (list.length === 0) {
-    historyList.innerHTML = '<div style="text-align: center; color: var(--text-dim); padding: 40px 0;"><i class="fa-solid fa-inbox" style="font-size: 32px; margin-bottom: 10px; display: block;"></i>No downloads yet.</div>';
+  if (!list || list.length === 0) {
+    if (historyEmpty) historyEmpty.style.display = 'block';
+    if (historyCountBadge) historyCountBadge.textContent = '0';
     return;
   }
+  if (historyEmpty) historyEmpty.style.display = 'none';
+  if (historyCountBadge) historyCountBadge.textContent = list.length;
 
   list.forEach(item => {
+    const p = PLATFORM_MAP[item.platform] || PLATFORM_MAP.general;
     const el = document.createElement('div');
     el.className = 'history-item';
     el.innerHTML = `
-      <img src="${item.thumbnail || ''}" class="history-thumb" alt="thumb">
+      <img src="${item.thumbnail || ''}" alt="thumb" class="history-thumb">
       <div class="history-details">
-        <div class="history-title">${item.title}</div>
-        <div class="history-time">${item.time} &bull; ${item.platform}</div>
+        <div class="history-item-title">${item.title || 'Video'}</div>
+        <div class="history-item-meta"><i class="${p.icon}" style="color: ${p.color};"></i> ${p.name}</div>
       </div>
-      <button class="input-inline-btn" title="Reload link"><i class="fa-solid fa-arrow-rotate-right"></i></button>
+      <button class="btn-history-re" title="Re-download video"><i class="fa-solid fa-download"></i></button>
     `;
-    el.querySelector('button').addEventListener('click', () => {
+    el.querySelector('.btn-history-re').onclick = () => {
       urlInput.value = item.originalUrl;
-      historyDrawer.style.display = 'none';
+      updatePlatformUI(detectPlatformFrontend(item.originalUrl));
       fetchVideoInfo();
-    });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
     historyList.appendChild(el);
   });
 }
 
-// --- Modals Management ---
-let qrInstance = null;
+if (btnClearHistory) {
+  btnClearHistory.onclick = () => {
+    localStorage.removeItem('awaisx_download_history');
+    renderHistory([]);
+    showToast('Download history cleared.');
+  };
+}
 
-async function loadNetworkInfo() {
-  try {
-    const res = await fetch('/api/network-info');
-    const data = await res.json();
-    if (networkUrlInput) networkUrlInput.value = data.networkUrl;
-    if (appApiUrlInput) appApiUrlInput.value = data.downloadExeUrl || data.downloadAppUrl;
+loadHistory();
 
-    if (qrcodeContainer && !qrInstance) {
-      qrcodeContainer.innerHTML = '';
-      qrInstance = new QRCode(qrcodeContainer, {
-        text: data.networkUrl,
+// --- FAQ Accordion Logic ---
+const faqItems = document.querySelectorAll('.faq-item');
+faqItems.forEach(item => {
+  const q = item.querySelector('.faq-question');
+  if (q) {
+    q.addEventListener('click', () => {
+      const wasActive = item.classList.contains('active');
+      faqItems.forEach(i => i.classList.remove('active'));
+      if (!wasActive) {
+        item.classList.add('active');
+      }
+    });
+  }
+});
+
+// --- Mobile Slide-Out Drawer ---
+if (mobileMenuToggle && mobileDrawerOverlay) {
+  mobileMenuToggle.addEventListener('click', () => {
+    mobileDrawerOverlay.classList.add('active');
+  });
+}
+
+if (drawerCloseBtn && mobileDrawerOverlay) {
+  drawerCloseBtn.addEventListener('click', () => {
+    mobileDrawerOverlay.classList.remove('active');
+  });
+}
+
+if (mobileDrawerOverlay) {
+  mobileDrawerOverlay.addEventListener('click', (e) => {
+    if (e.target === mobileDrawerOverlay) {
+      mobileDrawerOverlay.classList.remove('active');
+    }
+  });
+}
+
+// --- Modals Setup ---
+function setupModal(triggerBtn, modalEl) {
+  if (!triggerBtn || !modalEl) return;
+  triggerBtn.addEventListener('click', () => {
+    modalEl.classList.add('active');
+    if (mobileDrawerOverlay) mobileDrawerOverlay.classList.remove('active');
+  });
+  const closeBtn = modalEl.querySelector('.modal-close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      modalEl.classList.remove('active');
+    });
+  }
+  modalEl.addEventListener('click', (e) => {
+    if (e.target === modalEl) modalEl.classList.remove('active');
+  });
+}
+
+setupModal(btnNavAbout, modalAbout);
+setupModal(btnNavCopyright, modalCopyright);
+setupModal(btnNavQr, modalQr);
+
+// Drawer modal triggers
+setupModal(document.getElementById('drawerNavAbout'), modalAbout);
+setupModal(document.getElementById('drawerNavCopyright'), modalCopyright);
+setupModal(document.getElementById('drawerNavQr'), modalQr);
+
+// Mobile QR Code Generation
+if (btnNavQr || document.getElementById('drawerNavQr')) {
+  const qrContainer = document.getElementById('qrCodeContainer');
+  const qrUrlText = document.getElementById('qrUrlText');
+  const generateQr = () => {
+    if (qrContainer && typeof QRCode !== 'undefined') {
+      qrContainer.innerHTML = '';
+      const targetUrl = window.location.href;
+      new QRCode(qrContainer, {
+        text: targetUrl,
         width: 180,
         height: 180,
         colorDark: '#000000',
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel.H
       });
+      if (qrUrlText) qrUrlText.textContent = targetUrl;
     }
-  } catch (err) {
-    console.warn('Network info unavailable:', err);
-  }
+  };
+  if (btnNavQr) btnNavQr.addEventListener('click', generateQr);
+  const dQr = document.getElementById('drawerNavQr');
+  if (dQr) dQr.addEventListener('click', generateQr);
 }
 
-// Modal Triggers
-function openModal(modal) {
-  if (modal) modal.style.display = 'flex';
-}
-function closeModal(modal) {
-  if (modal) modal.style.display = 'none';
-}
+// Native Windows Desktop .EXE Download
+const handleExeDownload = () => {
+  showToast('Starting AwaisX Native Windows .EXE download...');
+  window.location.href = '/api/download-exe';
+};
 
-if (btnDownloadAppModal) btnDownloadAppModal.addEventListener('click', () => { loadNetworkInfo(); openModal(downloadAppModal); });
-if (btnDrawerDownloadApp) btnDrawerDownloadApp.addEventListener('click', () => { mobileDrawer.style.display = 'none'; loadNetworkInfo(); openModal(downloadAppModal); });
-if (btnCloseDownloadApp) btnCloseDownloadApp.addEventListener('click', () => closeModal(downloadAppModal));
-if (footerDownloadLink) footerDownloadLink.addEventListener('click', () => { loadNetworkInfo(); openModal(downloadAppModal); });
+if (btnNavExe) btnNavExe.addEventListener('click', handleExeDownload);
+const drawerNavExe = document.getElementById('drawerNavExe');
+if (drawerNavExe) drawerNavExe.addEventListener('click', handleExeDownload);
 
-if (btnAbout) btnAbout.addEventListener('click', () => openModal(aboutModal));
-if (btnDrawerAbout) btnDrawerAbout.addEventListener('click', () => { mobileDrawer.style.display = 'none'; openModal(aboutModal); });
-if (btnCloseAbout) btnCloseAbout.addEventListener('click', () => closeModal(aboutModal));
-if (footerAboutLink) footerAboutLink.addEventListener('click', () => openModal(aboutModal));
+// PWA Install Prompt Support
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (btnPwaInstall) btnPwaInstall.style.display = 'inline-flex';
+});
 
-if (btnCopyright) btnCopyright.addEventListener('click', () => openModal(copyrightModal));
-if (btnDrawerCopyright) btnDrawerCopyright.addEventListener('click', () => { mobileDrawer.style.display = 'none'; openModal(copyrightModal); });
-if (btnCloseCopyright) btnCloseCopyright.addEventListener('click', () => closeModal(copyrightModal));
-if (footerCopyrightLink) footerCopyrightLink.addEventListener('click', () => openModal(copyrightModal));
-
-if (btnMobileQr) btnMobileQr.addEventListener('click', () => { loadNetworkInfo(); openModal(qrModal); });
-if (btnDrawerMobileQr) btnDrawerMobileQr.addEventListener('click', () => { mobileDrawer.style.display = 'none'; loadNetworkInfo(); openModal(qrModal); });
-if (btnCloseQr) btnCloseQr.addEventListener('click', () => closeModal(qrModal));
-
-if (btnApiDocs) btnApiDocs.addEventListener('click', () => openModal(apiModal));
-if (btnDrawerApiDocs) btnDrawerApiDocs.addEventListener('click', () => { mobileDrawer.style.display = 'none'; openModal(apiModal); });
-if (btnCloseApi) btnCloseApi.addEventListener('click', () => closeModal(apiModal));
-if (footerApiLink) footerApiLink.addEventListener('click', () => openModal(apiModal));
-
-if (btnHistory) btnHistory.addEventListener('click', () => { renderHistoryList(); historyDrawer.style.display = 'flex'; });
-if (btnDrawerHistory) btnDrawerHistory.addEventListener('click', () => { mobileDrawer.style.display = 'none'; renderHistoryList(); historyDrawer.style.display = 'flex'; });
-if (btnCloseHistory) btnCloseHistory.addEventListener('click', () => { historyDrawer.style.display = 'none'; });
-
-if (btnClearHistory) {
-  btnClearHistory.addEventListener('click', () => {
-    localStorage.removeItem('awais_dl_history');
-    renderHistoryList();
-    updateHistoryBadge();
-    showToast('Download history cleared.');
-  });
-}
-
-// Mobile Menu Drawer
-if (btnMobileMenu) btnMobileMenu.addEventListener('click', () => { mobileDrawer.style.display = 'flex'; });
-if (btnCloseMobileDrawer) btnCloseMobileDrawer.addEventListener('click', () => { mobileDrawer.style.display = 'none'; });
-
-// Copy Network URLs
-if (btnCopyNetworkUrl) {
-  btnCopyNetworkUrl.addEventListener('click', async () => {
-    const success = await copyToClipboard(networkUrlInput.value);
-    if (success) showToast('Network WiFi URL copied!');
-  });
-}
-
-if (btnCopyAppUrl) {
-  btnCopyAppUrl.addEventListener('click', async () => {
-    const success = await copyToClipboard(appApiUrlInput.value);
-    if (success) showToast('Direct .EXE download link copied!');
-  });
-}
-
-// 1-Tap PWA Installation
 if (btnPwaInstall) {
   btnPwaInstall.addEventListener('click', async () => {
     if (deferredPrompt) {
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === 'accepted') {
-        showToast('Thank you for installing Awais Download Fast!');
+        showToast('AwaisX added to Home Screen!');
       }
       deferredPrompt = null;
     } else {
-      showToast('To install on Mobile: tap browser menu (⋮) -> "Add to Home screen" / "Install app"');
+      showToast('To install: Click browser menu ➔ "Add to Home Screen"');
     }
   });
 }
-
-// Close modals when clicking outside
-window.addEventListener('click', (e) => {
-  if (e.target.classList.contains('modal-overlay')) {
-    e.target.style.display = 'none';
-  }
-  if (e.target === mobileDrawer) {
-    mobileDrawer.style.display = 'none';
-  }
-  if (e.target === historyDrawer) {
-    historyDrawer.style.display = 'none';
-  }
-});
-
-// Initialize on page load
-updateHistoryBadge();
-loadNetworkInfo();

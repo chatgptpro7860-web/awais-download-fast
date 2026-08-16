@@ -1,16 +1,15 @@
 {
-  "name": "Awais Download Fast",
-  "short_name": "AwaisDownload",
-  "description": "Fast Video & MP3 Downloader for YouTube, TikTok, Instagram and more - 14 August Independence Day Edition",
+  "name": "AwaisX - Ultra-Fast Universal Downloader",
+  "short_name": "AwaisX",
+  "description": "Direct in-browser media downloader for YouTube 4K, TikTok, Instagram Reels and 1000+ sites. Developed by Awais.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#080b12",
   "theme_color": "#00f2fe",
-  "orientation": "portrait",
   "icons": [
     {
-      "src": "/icon.svg",
-      "sizes": "any",
+      "src": "icon.svg",
+      "sizes": "192x192 512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }

@@ -24,7 +24,7 @@ try {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// In-Memory Fast Cache (TTL: 15 minutes) for ultra-fast response
+// In-Memory Fast Cache (TTL: 15 minutes) for ultra-fast sub-second response
 const metadataCache = new Map();
 const CACHE_TTL_MS = 15 * 60 * 1000;
 
@@ -39,7 +39,6 @@ function getCached(key) {
 }
 
 function setCache(key, data) {
-  // Prevent unbounded memory growth (max 500 items)
   if (metadataCache.size > 500) {
     const firstKey = metadataCache.keys().next().value;
     metadataCache.delete(firstKey);
@@ -51,7 +50,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Cache-control for static assets (serves from both public and root directory)
+// Serve static assets from both public and root directory
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1h' }));
 app.use(express.static(__dirname, { maxAge: '1h' }));
 
@@ -70,7 +69,7 @@ function detectPlatform(url) {
 
 // Format duration helper
 function formatDuration(seconds) {
-  if (!seconds || isNaN(seconds)) return 'Unknown';
+  if (!seconds || isNaN(seconds)) return 'HD';
   const sec = Math.floor(seconds);
   const hrs = Math.floor(sec / 3600);
   const mins = Math.floor((sec % 3600) / 60);
@@ -83,7 +82,7 @@ function formatDuration(seconds) {
 
 // Format bytes helper
 function formatBytes(bytes) {
-  if (!bytes || isNaN(bytes)) return 'Auto';
+  if (!bytes || isNaN(bytes)) return 'HD';
   const units = ['B', 'KB', 'MB', 'GB'];
   let size = bytes;
   let unitIndex = 0;
@@ -96,8 +95,8 @@ function formatBytes(bytes) {
 
 // Sanitize filename
 function sanitizeFilename(name) {
-  if (!name) return 'Awais_Download_Fast';
-  return name.replace(/[/\\?%*:|"<>]/g, '_').slice(0, 120).trim();
+  if (!name) return 'AwaisX_Media';
+  return name.replace(/[/\\?%*:|"<>]/g, '_').slice(0, 100).trim();
 }
 
 // Get Local IPv4 Address
@@ -143,7 +142,7 @@ async function fetchTikTokDirect(url) {
               height: 1080,
               ext: 'mp4',
               formatId: 'direct',
-              filesize: d.size ? formatBytes(d.size) : 'HD',
+              filesize: d.size ? formatBytes(d.size) : 'HD Quality',
               directUrl: d.play
             },
             {
@@ -151,7 +150,7 @@ async function fetchTikTokDirect(url) {
               height: 720,
               ext: 'mp4',
               formatId: 'direct',
-              filesize: d.wm_size ? formatBytes(d.wm_size) : 'Standard',
+              filesize: d.wm_size ? formatBytes(d.wm_size) : 'Standard Quality',
               directUrl: d.wmplay || d.play
             }
           ],
@@ -179,7 +178,7 @@ app.get('/api/health', (req, res) => {
   const engineExists = fs.existsSync(BIN_PATH);
   res.json({
     status: 'ok',
-    app: 'Awais Download Fast',
+    app: 'AwaisX',
     edition: '14 August Pakistan Independence Day Edition 🇵🇰',
     version: '1.0.0',
     developer: 'Awais',
@@ -192,7 +191,7 @@ app.get('/api/health', (req, res) => {
 // API: About Details
 app.get('/api/about', (req, res) => {
   res.json({
-    app: 'Awais Download Fast',
+    app: 'AwaisX',
     developer: 'Awais',
     launchDate: '2026-08-14 (14 August - Pakistan Independence Day)',
     celebration: '🇵🇰 Official 14 August Independence Day Special Release 🇵🇰',
@@ -218,14 +217,14 @@ app.get('/api/copyright', (req, res) => {
   res.json({
     title: 'Copyright Notice & DMCA Policy',
     developer: 'Awais',
-    disclaimer: 'Awais Download Fast is a media transformation and personal backup utility tool. It does not host, store, or pirate any copyrighted media on its servers. All audio/video streams are fetched directly from original content distribution networks via public protocols.',
+    disclaimer: 'AwaisX is a media transformation and personal backup utility tool. It does not host, store, or pirate any copyrighted media on its servers. All audio/video streams are fetched directly from original content distribution networks via public protocols.',
     fairUse: 'This service complies with Section 107 of the US Copyright Act and international fair use guidelines for personal archiving, educational analysis, and non-commercial fair use.',
     dmcaCompliance: 'If you are a copyright owner or an agent thereof and believe that any content made accessible through this tool infringes upon your copyright, you may submit a takedown request to block specific URL patterns.',
-    contactEmail: 'contact.awaisdownload@gmail.com'
+    contactEmail: 'contact.awaisx@gmail.com'
   });
 });
 
-// API: Direct Native Windows EXE Download (Awais-Download-Fast.exe)
+// API: Direct Native Windows EXE Download
 app.get('/api/download-exe', (req, res) => {
   const exePath = path.join(__dirname, 'Awais-Download-Fast.exe');
   const binExePath = path.join(BIN_DIR, 'Awais-Download-Fast.exe');
@@ -236,137 +235,17 @@ app.get('/api/download-exe', (req, res) => {
   } else if (fs.existsSync(binExePath)) {
     targetPath = binExePath;
   } else {
-    // Attempt compile on the fly
     compileExe();
     if (fs.existsSync(exePath)) targetPath = exePath;
   }
 
   if (targetPath && fs.existsSync(targetPath)) {
-    res.setHeader('Content-Disposition', 'attachment; filename="Awais-Download-Fast.exe"');
+    res.setHeader('Content-Disposition', 'attachment; filename="AwaisX-Launcher.exe"');
     res.setHeader('Content-Type', 'application/vnd.microsoft.portable-executable');
     fs.createReadStream(targetPath).pipe(res);
   } else {
-    // Fallback to 1-click batch installer
     res.redirect('/api/download-installer/windows');
   }
-});
-
-// API: Download Entire Application Package as ZIP
-app.get('/api/download-app', (req, res) => {
-  try {
-    const filename = 'Awais-Download-Fast-v1.0.zip';
-    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-    res.setHeader('Content-Type', 'application/zip');
-
-    const archive = typeof archiver === 'function' 
-      ? archiver('zip', { zlib: { level: 9 } })
-      : new archiver.ZipArchive({ zlib: { level: 9 } });
-
-    archive.on('error', (err) => {
-      console.error('[Archive Error]:', err);
-      if (!res.headersSent) res.status(500).send('Failed to package application.');
-    });
-
-    archive.pipe(res);
-
-    // Append root files
-    const rootFiles = [
-      'Awais-Download-Fast.exe',
-      'Awais-Download-Fast.vbs',
-      'server.js',
-      'package.json',
-      'start.bat',
-      'Create-Desktop-Shortcut.bat',
-      'README.md'
-    ];
-
-    rootFiles.forEach((file) => {
-      const filePath = path.join(__dirname, file);
-      if (fs.existsSync(filePath)) {
-        archive.file(filePath, { name: file });
-      }
-    });
-
-    // Append directories
-    archive.directory(path.join(__dirname, 'public/'), 'public');
-    archive.directory(path.join(__dirname, 'scripts/'), 'scripts');
-
-    archive.finalize();
-  } catch (err) {
-    console.error('[Download App Error]:', err);
-    if (!res.headersSent) res.status(500).send('Failed to create app zip.');
-  }
-});
-
-// API: 1-Click Windows Installer (.bat) - Installs and Creates Desktop Shortcut with 0 manual extraction!
-app.get('/api/download-installer/windows', (req, res) => {
-  const host = req.get('host') || `localhost:${PORT}`;
-  const protocol = req.protocol || 'http';
-  const downloadZipUrl = `${protocol}://${host}/api/download-app`;
-  const downloadExeUrl = `${protocol}://${host}/api/download-exe`;
-
-  const installerBatContent = `@echo off
-title Awais Download Fast - 1-Click Windows Installer
-color 0B
-
-echo ========================================================
-echo       INSTALLING AWAIS DOWNLOAD FAST
-echo       Special 14 August Independence Day Edition 🇵🇰
-echo ========================================================
-echo.
-
-set INSTALL_DIR=%LOCALAPPDATA%\\AwaisDownloadFast
-set ZIP_FILE=%TEMP%\\Awais-Download-Fast.zip
-set SHORTCUT_PATH=%USERPROFILE%\\Desktop\\Awais Download Fast.lnk
-
-echo [1/4] Checking Node.js environment...
-where node >nul 2>nul
-if %errorlevel% neq 0 (
-    echo [ERROR] Node.js is required! Please install from https://nodejs.org/
-    echo Opening nodejs.org in your browser...
-    start https://nodejs.org/
-    pause
-    exit /b
-)
-
-echo [2/4] Downloading latest Awais Download Fast app package...
-powershell -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -Uri '${downloadZipUrl}' -OutFile '%ZIP_FILE%' -UseBasicParsing"
-
-if not exist "%ZIP_FILE%" (
-    echo [ERROR] Failed to download package. Please check network.
-    pause
-    exit /b
-)
-
-echo [3/4] Installing application to %INSTALL_DIR%...
-if not exist "%INSTALL_DIR%" mkdir "%INSTALL_DIR%"
-powershell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%INSTALL_DIR%' -Force"
-del /f /q "%ZIP_FILE%" 2>nul
-
-echo [4/4] Creating Desktop Shortcut pointing to native launcher...
-powershell -Command "$WshShell = New-Object -ComObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut('%SHORTCUT_PATH%'); if (Test-Path '%INSTALL_DIR%\\Awais-Download-Fast.exe') { $Shortcut.TargetPath = '%INSTALL_DIR%\\Awais-Download-Fast.exe' } else { $Shortcut.TargetPath = '%INSTALL_DIR%\\start.bat' }; $Shortcut.WorkingDirectory = '%INSTALL_DIR%'; $Shortcut.Description = 'Awais Download Fast - Universal Downloader'; $Shortcut.Save()"
-
-echo.
-echo ========================================================
-echo   [SUCCESS] AWAIS DOWNLOAD FAST INSTALLED SUCCESSFULLY!
-echo ========================================================
-echo   A desktop shortcut has been created on your Desktop.
-echo   Launching application now...
-echo ========================================================
-echo.
-
-if exist "%INSTALL_DIR%\\Awais-Download-Fast.exe" (
-    start "" "%INSTALL_DIR%\\Awais-Download-Fast.exe"
-) else (
-    start "" "%INSTALL_DIR%\\start.bat"
-)
-timeout /t 2 >nul
-exit
-`;
-
-  res.setHeader('Content-Disposition', 'attachment; filename="Awais-Download-Fast-Setup.bat"');
-  res.setHeader('Content-Type', 'application/x-bat');
-  res.send(installerBatContent);
 });
 
 // API: Network Info & Mobile Link
@@ -404,7 +283,7 @@ app.post('/api/info', async (req, res) => {
 
     const platform = detectPlatform(trimmedUrl);
 
-    // If TikTok, try instant no-watermark direct API first
+    // If TikTok, use instant direct no-watermark API
     if (platform === 'tiktok') {
       const tiktokData = await fetchTikTokDirect(trimmedUrl);
       if (tiktokData) {
@@ -418,7 +297,7 @@ app.post('/api/info', async (req, res) => {
       await ensureEngine();
     }
 
-    // Comprehensive yt-dlp arguments with YouTube bot-bypass player clients
+    // yt-dlp extraction args with player clients
     const args = [
       '--dump-single-json',
       '--no-warnings',
@@ -433,7 +312,6 @@ app.post('/api/info', async (req, res) => {
       if (error) {
         console.error('[Extract Info Error]:', stderr || error.message);
 
-        // If it was TikTok and yt-dlp failed, retry direct extractor
         if (platform === 'tiktok') {
           const directData = await fetchTikTokDirect(trimmedUrl);
           if (directData) {
@@ -454,14 +332,14 @@ app.post('/api/info', async (req, res) => {
         const videoOptions = [];
         const audioOptions = [];
 
-        // Check resolutions
+        // Resolutions
         const heightLabels = [
           { height: 2160, label: '4K Ultra HD (2160p)' },
           { height: 1440, label: '2K Quad HD (1440p)' },
           { height: 1080, label: 'Full HD (1080p)' },
           { height: 720, label: 'HD (720p)' },
           { height: 480, label: 'SD (480p)' },
-          { height: 360, label: 'Medium (360p)' }
+          { height: 360, label: 'Fast (360p)' }
         ];
 
         heightLabels.forEach(({ height, label }) => {
@@ -471,30 +349,30 @@ app.post('/api/info', async (req, res) => {
               quality: label,
               height: height,
               ext: 'mp4',
-              formatId: `bestvideo[height<=${height}]+bestaudio/best[height<=${height}]/best`,
+              formatId: `b[height<=${height}]/best[height<=${height}]/bestvideo[height<=${height}]+bestaudio/best`,
               filesize: match.filesize || match.filesize_approx ? formatBytes(match.filesize || match.filesize_approx) : 'HD',
               directUrl: match.url || null
             });
           }
         });
 
-        // Best Quality option
+        // Best Video Option
         videoOptions.unshift({
           quality: '🚀 Best Video (Highest Quality MP4)',
           height: rawInfo.height || 1080,
           ext: 'mp4',
-          formatId: 'bestvideo+bestaudio/best[ext=mp4]/best',
+          formatId: 'b/best[ext=mp4]/bestvideo+bestaudio/best',
           filesize: 'Full Quality',
           directUrl: null
         });
 
-        // Add 720p standard if not present
+        // 720p standard fallback
         if (!videoOptions.some(v => v.height === 720)) {
           videoOptions.push({
             quality: 'HD (720p MP4)',
             height: 720,
             ext: 'mp4',
-            formatId: '18/best[height<=720]/best',
+            formatId: '18/b[height<=720]/best[height<=720]/best',
             filesize: 'Standard HD',
             directUrl: null
           });
@@ -506,13 +384,13 @@ app.post('/api/info', async (req, res) => {
           ext: 'mp3',
           formatId: 'bestaudio/best',
           isAudio: true,
-          filesize: 'High Bitrate'
+          filesize: '320kbps HQ'
         });
 
         audioOptions.push({
           quality: '🎶 M4A Audio (AAC Standard)',
           ext: 'm4a',
-          formatId: 'bestaudio[ext=m4a]/bestaudio',
+          formatId: 'bestaudio[ext=m4a]/bestaudio/best',
           isAudio: true,
           filesize: 'Standard'
         });
@@ -541,9 +419,7 @@ app.post('/api/info', async (req, res) => {
           }
         };
 
-        // Cache the successful response
         setCache(trimmedUrl, responsePayload);
-
         res.json(responsePayload);
       } catch (parseErr) {
         console.error('[Parse Info JSON Error]:', parseErr);
@@ -565,14 +441,14 @@ app.get('/api/download', async (req, res) => {
       return res.status(400).send('Missing video URL parameter.');
     }
 
-    const cleanTitle = sanitizeFilename(title || 'Awais_Download_Fast');
+    const cleanTitle = sanitizeFilename(title || 'AwaisX_Media');
     const fileExt = ext || (isAudio === 'true' ? 'mp3' : 'mp4');
     const filename = `${cleanTitle}.${fileExt}`;
 
     res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(filename)}"; filename*=UTF-8''${encodeURIComponent(filename)}`);
     res.setHeader('Content-Type', isAudio === 'true' ? 'audio/mpeg' : 'video/mp4');
 
-    // 1. Direct CDN streaming if directUrl is present
+    // 1. Direct CDN streaming if directUrl is provided (e.g. TikTok No-Watermark)
     if (directUrl && typeof directUrl === 'string' && directUrl.startsWith('http')) {
       try {
         const streamRes = await axios({
@@ -590,14 +466,14 @@ app.get('/api/download', async (req, res) => {
       }
     }
 
-    // 2. yt-dlp core streaming with bot-bypass extractor args
+    // 2. yt-dlp core streaming
     if (!fs.existsSync(BIN_PATH)) {
       await ensureEngine();
     }
 
     const formatSelector = formatId && formatId !== 'direct'
       ? formatId 
-      : (isAudio === 'true' ? 'bestaudio/best' : '18/best[height<=720]/bestvideo+bestaudio/best');
+      : (isAudio === 'true' ? 'bestaudio/best' : 'b/18/best[height<=720]/best[ext=mp4]/best');
 
     const downloadArgs = [
       '--no-warnings',
@@ -641,7 +517,7 @@ app.get('/api/download', async (req, res) => {
   }
 });
 
-// Root fallback to index.html (safe for both root and public directory structures)
+// Root fallback to index.html
 app.get('*', (req, res) => {
   const publicIndex = path.join(__dirname, 'public', 'index.html');
   const rootIndex = path.join(__dirname, 'index.html');
@@ -650,16 +526,16 @@ app.get('*', (req, res) => {
   } else if (fs.existsSync(rootIndex)) {
     return res.sendFile(rootIndex);
   }
-  res.send('<h1>Awais Download Fast is active!</h1>');
+  res.send('<h1>AwaisX is active!</h1>');
 });
 
-// Start Server on 0.0.0.0 for LAN & Mobile accessibility (when not on serverless)
+// Start Server on 0.0.0.0 for LAN & Mobile accessibility
 if (!process.env.VERCEL) {
   const server = app.listen(PORT, '0.0.0.0', () => {
     const localIp = getLocalNetworkIp();
     console.log(`
 =====================================================
-  🚀 AWAIS DOWNLOAD FAST - SERVER RUNNING! 🚀
+  ⚡ AWAISX - UNIVERSAL MEDIA DOWNLOADER ⚡
   🇵🇰 14 AUGUST INDEPENDENCE DAY SPECIAL EDITION 🇵🇰
 =====================================================
   💻 PC / Desktop:   http://localhost:${PORT}
@@ -670,10 +546,9 @@ if (!process.env.VERCEL) {
     `);
   });
 
-  // Graceful error handling
   server.on('error', (err) => {
     if (err.code === 'EADDRINUSE') {
-      console.warn(`[Port Warning] Port ${PORT} is already in use by another instance of Awais Download Fast.`);
+      console.warn(`[Port Warning] Port ${PORT} is already in use.`);
     } else {
       console.error('[Server Error]:', err);
     }
@@ -681,4 +556,3 @@ if (!process.env.VERCEL) {
 }
 
 module.exports = app;
-
