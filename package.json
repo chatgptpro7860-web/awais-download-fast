@@ -1,20 +1,15 @@
 {
   "name": "awaisx",
   "version": "1.0.0",
-  "description": "AwaisX - Ultra-Fast Universal Video & MP3 Downloader for YouTube, TikTok No-Watermark, Instagram Reels, Facebook, Twitter and 1000+ Sites",
+  "description": "AwaisX - Ultra-Fast Universal Video & MP3 Downloader",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js",
-    "build": "node scripts/bundle-html.js"
+    "dev": "node --watch server.js"
   },
   "keywords": [
     "awaisx",
-    "video-downloader",
-    "youtube-downloader",
-    "instagram-reels",
-    "tiktok-no-watermark",
-    "fast-api"
+    "video-downloader"
   ],
   "author": "Awais",
   "license": "MIT",
