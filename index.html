@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Awais Download Fast - Universal Video & Audio Downloader</title>
-  <meta name="description" content="Download high quality videos and MP3 audio from YouTube, Instagram, TikTok, Facebook, Twitter and more with Awais Download Fast. Special 14 August Independence Day Edition.">
+  <title>⚡ AwaisX - Ultra-Fast Universal Media Downloader</title>
+  <meta name="description" content="AwaisX - Ultra-Fast Universal Video & MP3 Downloader for YouTube 4K, TikTok No-Watermark, Instagram Reels, Facebook, Twitter and 1000+ Sites. Developed by Awais.">
   <meta name="theme-color" content="#00f2fe">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Awais Download">
-  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-title" content="AwaisX">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- FontAwesome Icons for clean UI -->
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- QRCode.js for Mobile Network Link -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <style>
+<style>
 :root {
   --bg-dark: #080b12;
   --bg-card: rgba(18, 24, 38, 0.85);
@@ -1996,15 +1997,65 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .footer-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .footer-links {
-    justify-content: center;
-  }
+/* =========================================================
+   AWAISX LOGO & BRANDING ENHANCEMENTS
+========================================================= */
+.brand-x {
+  background: linear-gradient(135deg, #00ff87 0%, #00f2fe 50%, #ffe259 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.8));
+  font-weight: 900;
 }
+
+.splash-logo-img {
+  width: 90px;
+  height: 90px;
+  filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.8));
+  animation: logoFloat 3s ease-in-out infinite alternate;
+}
+
+@keyframes logoFloat {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-8px) scale(1.05); }
+}
+
+.nav-logo-svg {
+  width: 38px;
+  height: 38px;
+  filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.6));
+}
+
+.footer-logo-img {
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+}
+
+.about-logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 18px rgba(0, 242, 254, 0.7));
+}
+
+.btn-fast-dl, .btn-row-dl {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-fast-dl:hover, .btn-row-dl:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+  box-shadow: 0 8px 25px rgba(0, 242, 254, 0.4);
+}
+
+.btn-fast-dl:active, .btn-row-dl:active {
+  transform: translateY(0);
+}
+
 
 </style>
 </head>
@@ -2017,646 +2068,311 @@ body {
       <div class="particle p2"></div>
       <div class="particle p3"></div>
       <div class="particle p4"></div>
-      <div class="particle p5"></div>
     </div>
-    <div class="splash-container">
-      <div class="splash-logo-glow">
-        <div class="splash-logo">
-          <i class="fa-solid fa-bolt-lightning"></i>
-        </div>
+    <div class="splash-content">
+      <div class="splash-logo-wrap">
+        <img src="icon.svg" alt="AwaisX Logo" class="splash-logo-img">
+        <div class="splash-pulse-ring"></div>
       </div>
-      <div class="splash-badge azadi-badge">
-        <span class="flag-icon">🇵🇰</span> 14 AUGUST INDEPENDENCE DAY SPECIAL RELEASE <span class="flag-icon">🇵🇰</span>
+      <div class="splash-badge">
+        <span class="azadi-flag">🇵🇰</span> SPECIAL EDITION • DEVELOPED BY AWAIS
       </div>
-      <h1 class="splash-title">
-        WELCOME TO <br>
-        <span>AWAIS DOWNLOAD FAST</span>
-      </h1>
-      <p class="splash-subtitle">Download 4K Videos & MP3 from YouTube, Instagram, TikTok & 1000+ Sites in Seconds</p>
+      <h1 class="splash-title">WELCOME TO <span class="gradient-text">AWAISX</span></h1>
+      <p class="splash-desc">Ultra-Fast 4K & MP3 Universal Media Downloader</p>
       
-      <div class="splash-loader-bar">
-        <div class="splash-progress"></div>
+      <div class="splash-features-grid">
+        <div class="splash-feat"><i class="fa-brands fa-youtube" style="color: #ff0000;"></i> YouTube 4K/MP3</div>
+        <div class="splash-feat"><i class="fa-brands fa-tiktok" style="color: #00f2fe;"></i> TikTok No-WM</div>
+        <div class="splash-feat"><i class="fa-brands fa-instagram" style="color: #e1306c;"></i> Instagram Reels</div>
+        <div class="splash-feat"><i class="fa-solid fa-bolt" style="color: #ffe259;"></i> 100% Direct Download</div>
       </div>
 
-      <div class="splash-actions">
-        <button id="btnSkipIntro" class="splash-enter-btn">
-          <span>Enter Application</span>
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
-      </div>
+      <button id="btnSkipIntro" class="btn-splash-enter">
+        <span>Enter AwaisX</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
     </div>
   </div>
 
-  <!-- Interactive Dynamic Background Glow Mesh -->
-  <div class="background-glow" id="backgroundGlow">
+  <!-- Ambient Dynamic Mesh Background -->
+  <div class="ambient-background" id="backgroundGlow">
     <div class="glow-sphere sphere-1"></div>
     <div class="glow-sphere sphere-2"></div>
     <div class="glow-sphere sphere-3"></div>
     <div class="glow-sphere sphere-4"></div>
-    <div class="floating-grid-mesh"></div>
-  </div>
-
-  <!-- Header -->
-  <header class="app-header">
-    <div class="header-container">
-      <div class="brand">
-        <div class="brand-icon">
-          <i class="fa-solid fa-bolt-lightning"></i>
-        </div>
-        <div class="brand-text">
-          <h1 class="brand-title">AWAIS <span>DOWNLOAD FAST</span></h1>
-          <span class="brand-badge azadi-pill">🇵🇰 14 AUG</span>
-        </div>
-      </div>
-
-      <!-- Desktop Header Actions -->
-      <div class="header-actions desktop-only">
-        <button id="btnDownloadAppModal" class="action-btn btn-highlight" title="Download App for Windows PC & Mobile">
-          <i class="fa-solid fa-cloud-arrow-down"></i>
-          <span>Download App (.EXE)</span>
-        </button>
-        <button id="btnAbout" class="action-btn" title="About Awais Download Fast">
-          <i class="fa-solid fa-circle-info"></i>
-          <span>About</span>
-        </button>
-        <button id="btnCopyright" class="action-btn" title="Copyright Claim & DMCA Policy">
-          <i class="fa-solid fa-shield-halved"></i>
-          <span>Copyright Claim</span>
-        </button>
-        <button id="btnMobileQr" class="action-btn" title="Open on Mobile / WiFi QR Code">
-          <i class="fa-solid fa-qrcode"></i>
-          <span>Mobile / WiFi</span>
-        </button>
-        <button id="btnApiDocs" class="action-btn" title="Developer API">
-          <i class="fa-solid fa-code"></i>
-          <span>REST API</span>
-        </button>
-        <button id="btnHistory" class="action-btn" title="Download History">
-          <i class="fa-solid fa-clock-rotate-left"></i>
-          <span id="historyBadge" class="badge">0</span>
-        </button>
-      </div>
-
-      <!-- Mobile Menu Toggle Button -->
-      <button id="btnMobileMenu" class="mobile-menu-toggle mobile-only" title="Open Menu">
-        <i class="fa-solid fa-bars-staggered"></i>
-      </button>
-    </div>
-  </header>
-
-  <!-- Mobile Slide-out Drawer Menu -->
-  <div id="mobileDrawer" class="mobile-drawer-overlay" style="display: none;">
-    <div class="mobile-drawer-content">
-      <div class="mobile-drawer-header">
-        <div class="brand">
-          <div class="brand-icon-sm">
-            <i class="fa-solid fa-bolt"></i>
-          </div>
-          <span class="drawer-brand-title">AWAIS <span>DOWNLOAD</span></span>
-        </div>
-        <button id="btnCloseMobileDrawer" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-
-      <div class="mobile-drawer-body">
-        <div class="drawer-section-title">SPECIAL EDITION</div>
-        <div class="drawer-azadi-banner">
-          <span>🇵🇰</span> 14 August Independence Day Edition
-        </div>
-
-        <div class="drawer-section-title">QUICK ACTIONS</div>
-        <button id="btnDrawerDownloadApp" class="drawer-nav-item highlight">
-          <i class="fa-solid fa-cloud-arrow-down"></i>
-          <div>
-            <strong>Download / Install App</strong>
-            <small>Windows .EXE & Mobile PWA</small>
-          </div>
-        </button>
-        <button id="btnDrawerAbout" class="drawer-nav-item">
-          <i class="fa-solid fa-circle-info"></i>
-          <div>
-            <strong>About Awais Download Fast</strong>
-            <small>Creator & Launch Details</small>
-          </div>
-        </button>
-        <button id="btnDrawerCopyright" class="drawer-nav-item">
-          <i class="fa-solid fa-shield-halved"></i>
-          <div>
-            <strong>Copyright Claim & DMCA</strong>
-            <small>Legal Notice & Fair Use Policy</small>
-          </div>
-        </button>
-        <button id="btnDrawerMobileQr" class="drawer-nav-item">
-          <i class="fa-solid fa-qrcode"></i>
-          <div>
-            <strong>Mobile WiFi / QR Code</strong>
-            <small>Share with other phones on WiFi</small>
-          </div>
-        </button>
-        <button id="btnDrawerHistory" class="drawer-nav-item">
-          <i class="fa-solid fa-clock-rotate-left"></i>
-          <div>
-            <strong>Download History</strong>
-            <small>View and re-download recent files</small>
-          </div>
-        </button>
-        <button id="btnDrawerApiDocs" class="drawer-nav-item">
-          <i class="fa-solid fa-code"></i>
-          <div>
-            <strong>REST API Docs</strong>
-            <small>Integration API for developers</small>
-          </div>
-        </button>
-      </div>
-    </div>
   </div>
 
   <!-- Main Container -->
-  <main class="main-container">
-    
-    <!-- 14 August Celebratory Badge -->
-    <div class="azadi-ribbon">
-      <div class="azadi-ribbon-content">
-        <span class="azadi-flag">🇵🇰</span>
-        <span class="azadi-text"><strong>14 August Special Launch:</strong> Dedicated to Pakistan Independence Day &bull; 100% Free Forever</span>
-        <span class="azadi-flag">🇵🇰</span>
-      </div>
-    </div>
+  <div class="app-wrapper">
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="hero-tag">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> ⚡ Ultra-Fast 120 FPS High-Speed Media Engine
-      </div>
-      <h2 class="hero-title">Download Videos & MP3 in <span>Seconds</span></h2>
-      <p class="hero-desc">Supports YouTube (4K/1080p), Instagram Reels, TikTok (No Watermark), Facebook, Twitter/X, and 1000+ platforms with ultra-fast direct streaming.</p>
-    </section>
-
-    <!-- Platform Selector Tabs -->
-    <nav class="platform-tabs" role="tablist">
-      <button class="tab-btn active" data-platform="all">
-        <i class="fa-solid fa-sparkles"></i>
-        <span>Smart All-in-One</span>
-      </button>
-      <button class="tab-btn" data-platform="youtube">
-        <i class="fa-brands fa-youtube" style="color: #ff0000;"></i>
-        <span>YouTube</span>
-      </button>
-      <button class="tab-btn" data-platform="instagram">
-        <i class="fa-brands fa-instagram" style="color: #e1306c;"></i>
-        <span>Instagram</span>
-      </button>
-      <button class="tab-btn" data-platform="tiktok">
-        <i class="fa-brands fa-tiktok" style="color: #00f2fe;"></i>
-        <span>TikTok</span>
-      </button>
-      <button class="tab-btn" data-platform="other">
-        <i class="fa-solid fa-globe" style="color: #a855f7;"></i>
-        <span>Other Sites</span>
-      </button>
-    </nav>
-
-    <!-- Downloader Box -->
-    <section class="downloader-card">
-      <div class="input-wrapper">
-        <div class="platform-detect-icon" id="detectedPlatformIcon">
-          <i class="fa-solid fa-link"></i>
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+      <div class="nav-brand">
+        <div class="brand-logo-glow">
+          <img src="icon.svg" alt="AwaisX" class="nav-logo-svg">
         </div>
-        <input 
-          type="url" 
-          id="urlInput" 
-          placeholder="Paste video link here (e.g. YouTube, Instagram Reel, TikTok, Facebook...)"
-          autocomplete="off"
-          spellcheck="false"
-        >
-        <button id="btnClear" class="input-inline-btn" title="Clear input" style="display: none;">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-        <button id="btnPaste" class="input-inline-btn paste-btn" title="Paste from clipboard">
-          <i class="fa-solid fa-paste"></i>
-          <span>Paste</span>
-        </button>
-      </div>
-
-      <div class="input-footer">
-        <div class="quick-hints" id="platformHint">
-          <i class="fa-solid fa-circle-info"></i> Auto-detects platform automatically with in-memory instant speed cache.
-        </div>
-        <button id="btnFetch" class="btn-primary">
-          <span class="btn-text">
-            <i class="fa-solid fa-arrow-down"></i> Get Download Links
-          </span>
-          <span class="btn-loader" style="display: none;">
-            <i class="fa-solid fa-circle-notch fa-spin"></i> Fetching...
-          </span>
-        </button>
-      </div>
-    </section>
-
-    <!-- Error Message Display -->
-    <div id="errorBox" class="alert-box error" style="display: none;">
-      <i class="fa-solid fa-triangle-exclamation"></i>
-      <div class="alert-content">
-        <h4 id="errorTitle">Fetch Failed</h4>
-        <p id="errorMessage">Please check the link and try again.</p>
-      </div>
-      <button class="alert-close" onclick="this.parentElement.style.display='none'">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </div>
-
-    <!-- Result & Download Section -->
-    <section id="resultSection" class="result-card" style="display: none;">
-      <div class="media-details">
-        <div class="thumbnail-wrapper">
-          <img id="mediaThumbnail" src="" alt="Video thumbnail" class="media-thumb">
-          <div class="duration-badge" id="mediaDuration">0:00</div>
-          <div class="platform-badge" id="mediaPlatform">
-            <i class="fa-brands fa-youtube"></i> YouTube
+        <div class="brand-info">
+          <div class="brand-title-row">
+            <span class="brand-name">AWAIS<span class="brand-x">X</span></span>
+            <span class="edition-badge">PRO</span>
           </div>
+          <span class="brand-subtitle">Universal Downloader</span>
         </div>
+      </div>
 
-        <div class="media-info">
-          <h3 id="mediaTitle" class="media-title">Video Title</h3>
-          <div class="media-meta">
-            <span class="meta-item" id="mediaAuthor">
-              <i class="fa-solid fa-user-circle"></i> <span>Channel Name</span>
-            </span>
-            <span class="meta-item" id="mediaViews" style="display: none;">
-              <i class="fa-solid fa-eye"></i> <span>0 views</span>
-            </span>
+      <div class="nav-actions">
+        <button id="btnNavExe" class="nav-btn nav-btn-primary" title="Download Desktop App">
+          <i class="fa-solid fa-cloud-arrow-down"></i>
+          <span class="nav-btn-label">Desktop App (.EXE)</span>
+        </button>
+        <button id="btnNavAbout" class="nav-btn" title="About Creator">
+          <i class="fa-solid fa-circle-info"></i>
+          <span class="nav-btn-label">About</span>
+        </button>
+        <button id="btnNavCopyright" class="nav-btn" title="DMCA & Copyright">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span class="nav-btn-label">DMCA Policy</span>
+        </button>
+        <button id="btnNavQr" class="nav-btn" title="Share via QR Code">
+          <i class="fa-solid fa-qrcode"></i>
+          <span class="nav-btn-label">Mobile Link</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Hero Content -->
+    <main class="main-content">
+      
+      <!-- Hero Headline -->
+      <section class="hero-section">
+        <div class="hero-chip">
+          <span class="chip-dot"></span>
+          <span>⚡ DIRECT IN-BROWSER DOWNLOAD • ZERO ADS • 100% FREE</span>
+        </div>
+        <h1 class="hero-title">
+          Download Videos & MP3 in <span class="gradient-text">Seconds</span>
+        </h1>
+        <p class="hero-subtitle">
+          Direct stream download for YouTube, Instagram Reels, TikTok (No Watermark), Facebook, Twitter/X, and 1000+ platforms.
+        </p>
+      </section>
+
+      <!-- URL Input Card -->
+      <section class="input-card-wrap">
+        <div class="input-card">
+          <!-- Platform Tabs -->
+          <div class="platform-tabs">
+            <button class="tab-btn active" data-platform="all"><i class="fa-solid fa-wand-magic-sparkles"></i> Smart All-in-One</button>
+            <button class="tab-btn" data-platform="youtube"><i class="fa-brands fa-youtube"></i> YouTube</button>
+            <button class="tab-btn" data-platform="instagram"><i class="fa-brands fa-instagram"></i> Instagram</button>
+            <button class="tab-btn" data-platform="tiktok"><i class="fa-brands fa-tiktok"></i> TikTok</button>
+            <button class="tab-btn" data-platform="other"><i class="fa-solid fa-globe"></i> Other Sites</button>
           </div>
 
-          <!-- Fast 1-Click Action Buttons -->
-          <div class="quick-download-strip">
-            <div class="strip-label">⚡ Fast 1-Click Download Options:</div>
-            <div class="strip-buttons" id="quickButtons">
-              <!-- Dynamically inserted -->
+          <!-- Input Bar -->
+          <div class="input-bar">
+            <div class="input-icon-box" id="detectedPlatformIcon">
+              <i class="fa-solid fa-link"></i>
+            </div>
+            <input 
+              type="text" 
+              id="urlInput" 
+              class="url-input" 
+              placeholder="Paste any video or audio link here (e.g. YouTube, TikTok, Instagram Reel)..." 
+              autocomplete="off" 
+              spellcheck="false"
+            />
+            <button id="btnClear" class="btn-input-clear" title="Clear input" style="display: none;">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <button id="btnPaste" class="btn-input-paste" title="Paste from clipboard">
+              <i class="fa-solid fa-paste"></i>
+              <span>Paste</span>
+            </button>
+          </div>
+
+          <div class="input-helper-row">
+            <div id="platformHint" class="platform-hint">
+              <i class="fa-solid fa-bolt"></i> Auto-detects platform instantly with high-speed direct extraction.
+            </div>
+            <button id="btnFetch" class="btn-fetch-download">
+              <span class="btn-text"><i class="fa-solid fa-download"></i> Get Download Links</span>
+              <span class="btn-loader" style="display: none;"><i class="fa-solid fa-circle-notch fa-spin"></i> Processing...</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Error Message Box -->
+      <div id="errorBox" class="error-box" style="display: none;">
+        <i class="fa-solid fa-triangle-exclamation error-icon"></i>
+        <div class="error-details">
+          <div id="errorTitle" class="error-title">Error</div>
+          <div id="errorMessage" class="error-msg">Something went wrong.</div>
+        </div>
+        <button class="btn-error-close" onclick="document.getElementById('errorBox').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Video Result Section -->
+      <section id="resultSection" class="result-section" style="display: none;">
+        <div class="result-card">
+          <div class="result-header">
+            <div class="thumb-container">
+              <img id="mediaThumbnail" src="" alt="Thumbnail" class="media-thumb">
+              <span id="mediaDuration" class="media-badge-dur">0:00</span>
+              <span id="mediaPlatform" class="media-badge-plat"><i class="fa-brands fa-youtube"></i> YouTube</span>
+            </div>
+            <div class="media-meta">
+              <h2 id="mediaTitle" class="media-title">Video Title</h2>
+              <div class="media-meta-sub">
+                <div id="mediaAuthor" class="meta-author"><i class="fa-solid fa-user-circle"></i> <span>Creator</span></div>
+                <div id="mediaViews" class="meta-views"><i class="fa-solid fa-eye"></i> <span>0 views</span></div>
+              </div>
+              
+              <div class="quick-download-banner">
+                <div class="quick-label"><i class="fa-solid fa-bolt"></i> Direct 1-Click Browser Downloads:</div>
+                <div id="quickButtons" class="quick-btns-row"></div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Format Selection Tabs -->
-      <div class="formats-container">
-        <div class="formats-header">
-          <div class="format-tabs">
-            <button class="fmt-tab active" data-fmt="video">
-              <i class="fa-solid fa-video"></i> Video Formats (MP4)
-            </button>
-            <button class="fmt-tab" data-fmt="audio">
-              <i class="fa-solid fa-music"></i> Audio & MP3
-            </button>
+          <!-- Format Tables -->
+          <div class="formats-tabs-wrap">
+            <div class="formats-header"><i class="fa-solid fa-video"></i> Video Formats (Direct MP4)</div>
+            <div id="videoFormatsList" class="formats-list"></div>
+
+            <div class="formats-header" style="margin-top: 25px;"><i class="fa-solid fa-music"></i> Audio & MP3 Downloads</div>
+            <div id="audioFormatsList" class="formats-list"></div>
           </div>
         </div>
+      </section>
 
-        <!-- Video Formats Table -->
-        <div class="formats-list" id="videoFormatsList">
-          <!-- Dynamically populated -->
-        </div>
-
-        <!-- Audio Formats Table -->
-        <div class="formats-list" id="audioFormatsList" style="display: none;">
-          <!-- Dynamically populated -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Platform Feature Cards with Desktop Animations -->
-    <section class="features-grid">
-      <div class="feature-card animated-card">
-        <div class="feature-icon yt-icon">
-          <i class="fa-brands fa-youtube"></i>
-        </div>
-        <div class="feature-body">
+      <!-- Platform Features Showcase Grid -->
+      <section class="features-grid">
+        <div class="feature-card">
+          <div class="feat-icon-wrap yt-glow"><i class="fa-brands fa-youtube"></i></div>
           <h3>YouTube Studio 4K</h3>
           <p>Download 4K, 1080p, 720p 60fps HD Videos, YouTube Shorts, and high-bitrate 320kbps MP3.</p>
         </div>
-      </div>
-
-      <div class="feature-card animated-card">
-        <div class="feature-icon insta-icon">
-          <i class="fa-brands fa-instagram"></i>
-        </div>
-        <div class="feature-body">
+        <div class="feature-card">
+          <div class="feat-icon-wrap insta-glow"><i class="fa-brands fa-instagram"></i></div>
           <h3>Instagram Reels Hub</h3>
-          <p>Instant download for Instagram Reels, IGTV, Photos, and Video Posts in crisp original quality.</p>
+          <p>Instant direct download for Instagram Reels, IGTV, Photos, and Video Posts in original quality.</p>
         </div>
-      </div>
-
-      <div class="feature-card animated-card">
-        <div class="feature-icon tiktok-icon">
-          <i class="fa-brands fa-tiktok"></i>
-        </div>
-        <div class="feature-body">
+        <div class="feature-card">
+          <div class="feat-icon-wrap tiktok-glow"><i class="fa-brands fa-tiktok"></i></div>
           <h3>TikTok No Watermark</h3>
           <p>Download clean TikTok videos without watermark and extract original TikTok audio/music.</p>
         </div>
-      </div>
+      </section>
 
-      <div class="feature-card animated-card">
-        <div class="feature-icon all-icon">
-          <i class="fa-solid fa-desktop"></i>
-        </div>
-        <div class="feature-body">
-          <h3>Standalone Desktop .EXE</h3>
-          <p>Double-click the desktop app anytime. Runs independently even when IDE/terminals are off.</p>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Download App Modal (Windows .EXE & Mobile PWA) -->
-  <div id="downloadAppModal" class="modal-overlay" style="display: none;">
-    <div class="modal-card modal-large">
-      <div class="modal-header">
-        <h3><i class="fa-solid fa-cloud-arrow-down"></i> Download "Awais Download Fast" App</h3>
-        <button class="modal-close" id="btnCloseDownloadApp"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body">
-        <p class="modal-subtitle">Install or download <strong>Awais Download Fast</strong> directly onto your PC as a native <code>.exe</code> executable or on Mobile as a 1-tap app:</p>
-        
-        <div class="app-download-grid">
-          <!-- PC Native EXE Option -->
-          <div class="app-option-card">
-            <div class="option-badge">RECOMMENDED FOR PC</div>
-            <div class="option-header">
-              <i class="fa-brands fa-windows" style="color: #00f2fe; font-size: 30px;"></i>
-              <div>
-                <h4>Windows Native .EXE App</h4>
-                <p>Direct executable &bull; Zero extraction needed</p>
-              </div>
-            </div>
-            <ul class="option-perks">
-              <li><i class="fa-solid fa-check"></i> Direct <strong>Awais-Download-Fast.exe</strong> binary</li>
-              <li><i class="fa-solid fa-check"></i> Starts server silently without command window</li>
-              <li><i class="fa-solid fa-check"></i> Creates instant Desktop Shortcut on launch</li>
-            </ul>
-            <a href="/api/download-exe" class="btn-download-app-zip" download="Awais-Download-Fast.exe">
-              <i class="fa-solid fa-download"></i> Download Windows App (.EXE)
-            </a>
-            <div class="alternative-pc-links">
-              <a href="/api/download-installer/windows" class="zip-backup-link" download="Awais-Download-Fast-Setup.bat">
-                <i class="fa-solid fa-bolt"></i> 1-Click Auto Setup (.bat)
-              </a>
-              <span class="sep">&bull;</span>
-              <a href="/api/download-app" class="zip-backup-link" download="Awais-Download-Fast-v1.0.zip">
-                <i class="fa-solid fa-file-zipper"></i> Full .ZIP Package
-              </a>
-            </div>
+      <!-- Download History Section -->
+      <section class="history-section">
+        <div class="history-header">
+          <div class="history-title-row">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <h2>Recent Downloads</h2>
+            <span id="historyCountBadge" class="history-badge">0</span>
           </div>
-
-          <!-- Mobile PWA Option -->
-          <div class="app-option-card">
-            <div class="option-badge mobile-badge">MOBILE INSTANT</div>
-            <div class="option-header">
-              <i class="fa-solid fa-mobile-screen" style="color: #9333ea; font-size: 30px;"></i>
-              <div>
-                <h4>Mobile App (Android / iPhone)</h4>
-                <p>Install directly to your phone home screen</p>
-              </div>
-            </div>
-            <ul class="option-perks">
-              <li><i class="fa-solid fa-check"></i> 1-Tap native fullscreen mobile app</li>
-              <li><i class="fa-solid fa-check"></i> Instant fast downloads from your phone</li>
-              <li><i class="fa-solid fa-check"></i> No app store needed / Zero storage wasted</li>
-            </ul>
-            <button id="btnPwaInstall" class="btn-install-pwa">
-              <i class="fa-solid fa-mobile-screen-button"></i> 1-Tap Install Mobile App
-            </button>
-            <div class="mobile-instruction-hint">
-              <small><i class="fa-solid fa-info-circle"></i> On iOS Safari, tap <strong>Share</strong> &rarr; <strong>Add to Home Screen</strong>.</small>
-            </div>
-          </div>
+          <button id="btnClearHistory" class="btn-clear-hist"><i class="fa-solid fa-trash-can"></i> Clear</button>
         </div>
+        <div id="historyEmpty" class="history-empty">
+          <i class="fa-solid fa-folder-open"></i>
+          <p>Your recent downloads will appear here for fast re-access.</p>
+        </div>
+        <div id="historyList" class="history-list"></div>
+      </section>
 
-        <div class="api-share-box">
-          <div class="api-share-title">
-            <i class="fa-solid fa-link"></i> Direct .EXE App Download Link (Share with anyone):
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="icon.svg" alt="AwaisX" class="footer-logo-img">
+            <span>AWAIS<span class="brand-x">X</span></span>
           </div>
-          <div class="network-url-box">
-            <input type="text" id="appApiUrlInput" value="" readonly>
-            <button id="btnCopyAppUrl" class="btn-copy">
-              <i class="fa-solid fa-copy"></i> Copy Link
-            </button>
+          <p>The ultimate high-speed media downloader developed by <strong>Awais</strong>. Free forever.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Application</h4>
+            <a href="javascript:void(0)" onclick="document.getElementById('modalAbout').classList.add('active')">About Creator</a>
+            <a href="javascript:void(0)" onclick="document.getElementById('modalCopyright').classList.add('active')">DMCA & Legal</a>
+            <a href="javascript:void(0)" onclick="document.getElementById('modalQr').classList.add('active')">Mobile Access</a>
+          </div>
+          <div class="footer-col">
+            <h4>Platforms</h4>
+            <span>YouTube 4K</span>
+            <span>Instagram Reels</span>
+            <span>TikTok No-Watermark</span>
+            <span>Facebook & Twitter/X</span>
           </div>
         </div>
       </div>
-    </div>
+      <div class="footer-bottom">
+        <div>© 2026 <strong>AwaisX</strong>. Developed with ❤️ by <strong>Awais</strong>. All rights reserved.</div>
+        <div class="azadi-footer-badge">🇵🇰 Special Independence Day Edition</div>
+      </div>
+    </footer>
+
   </div>
 
-  <!-- About Modal -->
-  <div id="aboutModal" class="modal-overlay" style="display: none;">
-    <div class="modal-card modal-large">
-      <div class="modal-header">
-        <h3><i class="fa-solid fa-circle-info"></i> About Awais Download Fast</h3>
-        <button class="modal-close" id="btnCloseAbout"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body">
-        
-        <div class="about-hero-box">
-          <div class="about-logo">
-            <i class="fa-solid fa-bolt-lightning"></i>
-          </div>
-          <div class="about-hero-details">
-            <h3>Awais Download Fast <span class="badge azadi-pill">🇵🇰 14 August Edition</span></h3>
-            <p>High Performance Multi-Platform Video & Audio Extraction Suite</p>
-          </div>
-        </div>
-
-        <div class="about-meta-grid">
-          <div class="about-meta-card">
-            <div class="meta-icon"><i class="fa-solid fa-user-tie"></i></div>
-            <div class="meta-text">
-              <span class="meta-label">Developer & Creator</span>
-              <strong class="meta-val">Awais</strong>
-            </div>
-          </div>
-
-          <div class="about-meta-card">
-            <div class="meta-icon"><i class="fa-solid fa-calendar-star"></i></div>
-            <div class="meta-text">
-              <span class="meta-label">Official Launch Date</span>
-              <strong class="meta-val">14 August (Pakistan Independence Day) 🇵🇰</strong>
-            </div>
-          </div>
-
-          <div class="about-meta-card">
-            <div class="meta-icon"><i class="fa-solid fa-gauge-high"></i></div>
-            <div class="meta-text">
-              <span class="meta-label">Processing Engine</span>
-              <strong class="meta-val">120 FPS Direct Stream Engine v1.0</strong>
-            </div>
-          </div>
-
-          <div class="about-meta-card">
-            <div class="meta-icon"><i class="fa-solid fa-shield-heart"></i></div>
-            <div class="meta-text">
-              <span class="meta-label">License & Cost</span>
-              <strong class="meta-val">100% Free & Unlimited</strong>
-            </div>
-          </div>
-        </div>
-
-        <div class="about-content-section">
-          <h4><i class="fa-solid fa-bullseye"></i> Mission & Vision</h4>
-          <p>
-            <strong>Awais Download Fast</strong> was built with a clear purpose: to give users a blistering fast, beautiful, and unrestricted tool to backup, stream, and download their favorite media from YouTube, Instagram, TikTok, Facebook, Twitter, and over 1,000 websites without annoying advertisements, popups, or quality throttling.
-          </p>
-          <p>
-            Launched proudly on <strong>14 August (Pakistan Independence Day)</strong>, this application is dedicated to freedom of access, seamless user experience, and state-of-the-art software craftsmanship.
-          </p>
-        </div>
-
-        <div class="about-content-section">
-          <h4><i class="fa-solid fa-hard-drive"></i> Cloud & Storage Integration</h4>
-          <p>
-            The engine is designed for zero clutter. You can store your downloaded videos and engine plugins directly in your local directory, network storage, or sync them with <strong>Google Drive / Cloud storage</strong> for effortless universal access across all your devices.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Copyright Claim & DMCA Policy Modal -->
-  <div id="copyrightModal" class="modal-overlay" style="display: none;">
-    <div class="modal-card modal-large">
-      <div class="modal-header">
-        <h3><i class="fa-solid fa-shield-halved"></i> Copyright Claim & DMCA Policy</h3>
-        <button class="modal-close" id="btnCloseCopyright"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="modal-body">
-        
-        <div class="legal-notice-box">
-          <div class="legal-notice-icon">
-            <i class="fa-solid fa-scale-balanced"></i>
-          </div>
-          <div>
-            <h4>Legal Disclaimer & Fair Use Notice</h4>
-            <p>Please read our intellectual property rights and fair use policies below.</p>
-          </div>
-        </div>
-
-        <div class="legal-section">
-          <h5>1. Intellectual Property & No-Hosting Disclaimer</h5>
-          <p>
-            <strong>Awais Download Fast</strong> is a client-side media transformer and personal backup utility tool. This service <strong>does NOT host, store, archive, or distribute</strong> any copyrighted media files on its servers. All media data is streamed on-the-fly directly from public third-party content delivery networks (CDNs) requested by the user.
-          </p>
-        </div>
-
-        <div class="legal-section">
-          <h5>2. Fair Use Compliance (Section 107 of US Copyright Act)</h5>
-          <p>
-            This tool is provided for personal archiving, educational research, transformative commentary, and fair use purposes under Section 107 of the US Copyright Act and comparable international fair use doctrines. Users are solely responsible for ensuring they possess the right to download and archive content.
-          </p>
-        </div>
-
-        <div class="legal-section">
-          <h5>3. DMCA Takedown & URL Removal Requests</h5>
-          <p>
-            If you are a copyright owner or an authorized agent and wish to request the blocking or disabling of specific video URLs from being processed by this tool, please submit an official DMCA takedown notice including:
-          </p>
-          <ul class="legal-bullets">
-            <li>Identification of the copyrighted work claimed to have been infringed.</li>
-            <li>Specific URL(s) to be blocked.</li>
-            <li>Your contact information (name, address, email address).</li>
-            <li>A statement made under penalty of perjury that you are the rightful copyright holder or authorized agent.</li>
-          </ul>
-          <div class="contact-card">
-            <i class="fa-solid fa-envelope"></i>
-            <div>
-              <strong>Official DMCA Contact Email:</strong>
-              <a href="mailto:contact.awaisdownload@gmail.com">contact.awaisdownload@gmail.com</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Mobile WiFi QR Code Modal -->
-  <div id="qrModal" class="modal-overlay" style="display: none;">
+  <!-- Modal: About Creator -->
+  <div id="modalAbout" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-mobile-screen-button"></i> Mobile / WiFi Sharing</h3>
-        <button class="modal-close" id="btnCloseQr"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-title"><i class="fa-solid fa-circle-user"></i> About AwaisX</div>
+        <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body">
-        <p class="modal-subtitle">Scan this QR Code with your mobile phone camera to open <strong>Awais Download Fast</strong> directly on your phone browser:</p>
-        <div class="qr-code-box">
-          <div id="qrcode"></div>
+        <div class="about-hero">
+          <img src="icon.svg" alt="AwaisX" class="about-logo">
+          <h3>AwaisX Pro Downloader</h3>
+          <p class="about-author">Created & Engineered by <strong>Awais</strong></p>
         </div>
-        <div class="network-url-box">
-          <input type="text" id="networkUrlInput" readonly>
-          <button id="btnCopyNetworkUrl" class="btn-copy">
-            <i class="fa-solid fa-copy"></i> Copy Link
-          </button>
-        </div>
-        <div class="wifi-note">
-          <i class="fa-solid fa-wifi"></i> Make sure your phone is connected to the same WiFi / Network.
+        <div class="about-desc">
+          <p><strong>AwaisX</strong> is an ultra-fast universal media downloader designed to deliver seamless, watermark-free direct video and MP3 downloads without annoying ads or external redirects.</p>
+          <ul>
+            <li><i class="fa-solid fa-check" style="color:#00ff87;"></i> 100% Direct In-Browser Downloads</li>
+            <li><i class="fa-solid fa-check" style="color:#00ff87;"></i> Zero Ads, Zero Popups, Zero Redirects</li>
+            <li><i class="fa-solid fa-check" style="color:#00ff87;"></i> Dedicated to Pakistan Independence Day 🇵🇰</li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- API Docs Modal -->
-  <div id="apiModal" class="modal-overlay" style="display: none;">
-    <div class="modal-card modal-large">
+  <!-- Modal: Copyright & DMCA -->
+  <div id="modalCopyright" class="modal-overlay">
+    <div class="modal-card">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-code"></i> Awais Download Fast - REST API</h3>
-        <button class="modal-close" id="btnCloseApi"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-title"><i class="fa-solid fa-shield-halved"></i> Copyright & DMCA Policy</div>
+        <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body">
-        <p class="modal-subtitle">Use this API to download videos from any Python script, Mobile App, cURL, or Web project.</p>
-        
-        <div class="api-doc-block">
-          <div class="api-endpoint"><span class="badge-get">GET</span> <code>/api/download-exe</code></div>
-          <p>Downloads the native standalone Windows <code>.exe</code> application binary.</p>
-        </div>
-
-        <div class="api-doc-block">
-          <div class="api-endpoint"><span class="badge-get">GET</span> <code>/api/about</code></div>
-          <p>Retrieves app metadata, creator details (Awais), and 14 August Launch stats.</p>
-        </div>
-
-        <div class="api-doc-block">
-          <div class="api-endpoint"><span class="badge-get">GET</span> <code>/api/copyright</code></div>
-          <p>Retrieves copyright claim guidelines, DMCA policies, and takedown procedures.</p>
-        </div>
-
-        <div class="api-doc-block">
-          <div class="api-endpoint"><span class="badge-post">POST</span> <code>/api/info</code></div>
-          <p>Extracts title, thumbnail, duration, and format options with fast in-memory cache.</p>
-          <pre><code>// Request Body
-{
-  "url": "https://www.youtube.com/watch?v=..."
-}</code></pre>
-        </div>
-
-        <div class="api-doc-block">
-          <div class="api-endpoint"><span class="badge-get">GET</span> <code>/api/download</code></div>
-          <p>Streams direct video or audio download.</p>
-          <pre><code>// Example Request
-GET /api/download?url=https://www.tiktok.com/...&isAudio=false&title=MyVideo</code></pre>
+        <p><strong>AwaisX</strong> is a personal media transformation and backup tool. It does not host, store, or re-broadcast any media files on its servers. All media streams are fetched directly from official public content delivery networks.</p>
+        <p>This service strictly adheres to Section 107 of the US Copyright Act and International Fair Use standards for personal archiving and educational analysis.</p>
+        <div class="dmca-contact-box">
+          <i class="fa-solid fa-envelope"></i>
+          <span>DMCA Contact: <strong>contact.awaisx@gmail.com</strong></span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- History Drawer -->
-  <div id="historyDrawer" class="drawer-overlay" style="display: none;">
-    <div class="drawer-content">
-      <div class="drawer-header">
-        <h3><i class="fa-solid fa-clock-rotate-left"></i> Download History</h3>
-        <div class="drawer-actions">
-          <button id="btnClearHistory" class="btn-text-danger"><i class="fa-solid fa-trash"></i> Clear</button>
-          <button id="btnCloseHistory" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
-        </div>
+  <!-- Modal: Mobile QR Share -->
+  <div id="modalQr" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title"><i class="fa-solid fa-mobile-screen"></i> Mobile Access & QR</div>
+        <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div id="historyList" class="history-list">
-        <!-- Dynamically populated -->
+      <div class="modal-body text-center">
+        <p>Open AwaisX directly on your mobile device browser without installing any app:</p>
+        <div id="qrCodeContainer" class="qr-container" style="display:flex; justify-content:center; margin: 15px 0;"></div>
+        <p class="qr-note">Scan this QR Code with your smartphone camera to launch AwaisX instantly.</p>
       </div>
     </div>
   </div>
@@ -2664,28 +2380,12 @@ GET /api/download?url=https://www.tiktok.com/...&isAudio=false&title=MyVideo</co
   <!-- Toast Notification -->
   <div id="toast" class="toast">
     <i class="fa-solid fa-circle-check"></i>
-    <span id="toastMsg">Success</span>
+    <span id="toastMsg">Notification message</span>
   </div>
 
-  <!-- Footer -->
-  <footer class="app-footer">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <p>⚡ <strong>Awais Download Fast</strong> &bull; Developed with &hearts; by <strong>Awais</strong></p>
-        <p class="footer-sub">🇵🇰 Launched on 14 August (Pakistan Independence Day) &bull; 100% Free & Fast</p>
-      </div>
-      <div class="footer-links">
-        <a href="javascript:void(0)" id="footerAboutLink"><i class="fa-solid fa-circle-info"></i> About</a>
-        <a href="javascript:void(0)" id="footerCopyrightLink"><i class="fa-solid fa-shield-halved"></i> Copyright Claim & DMCA</a>
-        <a href="javascript:void(0)" id="footerApiLink"><i class="fa-solid fa-code"></i> REST API</a>
-        <a href="javascript:void(0)" id="footerDownloadLink"><i class="fa-solid fa-desktop"></i> Windows App (.EXE)</a>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-// Awais Download Fast - Frontend Logic
-// Special 14 August Independence Day Edition 🇵🇰
+<script>
+// ⚡ AwaisX - Ultra-Fast Universal Media Downloader
+// Developed with ❤️ by Awais
 
 let currentVideoData = null;
 let currentPlatformFilter = 'all';
@@ -2696,14 +2396,12 @@ const clientCache = new Map();
 // --- Bulletproof Copy to Clipboard Helper ---
 async function copyToClipboard(text) {
   if (!text) return false;
-  
   if (navigator.clipboard && window.isSecureContext) {
     try {
       await navigator.clipboard.writeText(text);
       return true;
     } catch (e) {}
   }
-
   try {
     const textArea = document.createElement('textarea');
     textArea.value = text;
@@ -2740,10 +2438,9 @@ if (btnSkipIntro) {
   btnSkipIntro.addEventListener('click', closeSplash);
 }
 
-// Auto fade out after 2.5 seconds
 setTimeout(() => {
   closeSplash();
-}, 2500);
+}, 2200);
 
 // --- Desktop Dynamic Ambient Parallax Animation ---
 const backgroundGlow = document.getElementById('backgroundGlow');
@@ -2753,7 +2450,6 @@ if (window.innerWidth > 768 && backgroundGlow) {
   window.addEventListener('mousemove', (e) => {
     const xRatio = (e.clientX / window.innerWidth - 0.5) * 30;
     const yRatio = (e.clientY / window.innerHeight - 0.5) * 30;
-
     glowSpheres.forEach((sphere, index) => {
       const factor = (index + 1) * 0.7;
       sphere.style.transform = `translate(${xRatio * factor}px, ${yRatio * factor}px)`;
@@ -2787,78 +2483,71 @@ const videoFormatsList = document.getElementById('videoFormatsList');
 const audioFormatsList = document.getElementById('audioFormatsList');
 
 const tabButtons = document.querySelectorAll('.tab-btn');
-const fmtTabs = document.querySelectorAll('.fmt-tab');
-
-// Desktop Header & Modals
-const btnDownloadAppModal = document.getElementById('btnDownloadAppModal');
-const downloadAppModal = document.getElementById('downloadAppModal');
-const btnCloseDownloadApp = document.getElementById('btnCloseDownloadApp');
-const btnPwaInstall = document.getElementById('btnPwaInstall');
-const appApiUrlInput = document.getElementById('appApiUrlInput');
-const btnCopyAppUrl = document.getElementById('btnCopyAppUrl');
-
-const btnAbout = document.getElementById('btnAbout');
-const aboutModal = document.getElementById('aboutModal');
-const btnCloseAbout = document.getElementById('btnCloseAbout');
-
-const btnCopyright = document.getElementById('btnCopyright');
-const copyrightModal = document.getElementById('copyrightModal');
-const btnCloseCopyright = document.getElementById('btnCloseCopyright');
-
-const btnMobileQr = document.getElementById('btnMobileQr');
-const qrModal = document.getElementById('qrModal');
-const btnCloseQr = document.getElementById('btnCloseQr');
-const networkUrlInput = document.getElementById('networkUrlInput');
-const btnCopyNetworkUrl = document.getElementById('btnCopyNetworkUrl');
-const qrcodeContainer = document.getElementById('qrcode');
-
-const btnApiDocs = document.getElementById('btnApiDocs');
-const apiModal = document.getElementById('apiModal');
-const btnCloseApi = document.getElementById('btnCloseApi');
-
-const btnHistory = document.getElementById('btnHistory');
-const historyBadge = document.getElementById('historyBadge');
-const historyDrawer = document.getElementById('historyDrawer');
-const btnCloseHistory = document.getElementById('btnCloseHistory');
-const btnClearHistory = document.getElementById('btnClearHistory');
 const historyList = document.getElementById('historyList');
+const historyEmpty = document.getElementById('historyEmpty');
+const btnClearHistory = document.getElementById('btnClearHistory');
+const historyCountBadge = document.getElementById('historyCountBadge');
 
-// Mobile Drawer Elements
-const btnMobileMenu = document.getElementById('btnMobileMenu');
-const mobileDrawer = document.getElementById('mobileDrawer');
-const btnCloseMobileDrawer = document.getElementById('btnCloseMobileDrawer');
-const btnDrawerDownloadApp = document.getElementById('btnDrawerDownloadApp');
-const btnDrawerAbout = document.getElementById('btnDrawerAbout');
-const btnDrawerCopyright = document.getElementById('btnDrawerCopyright');
-const btnDrawerMobileQr = document.getElementById('btnDrawerMobileQr');
-const btnDrawerHistory = document.getElementById('btnDrawerHistory');
-const btnDrawerApiDocs = document.getElementById('btnDrawerApiDocs');
+// Modals
+const modalAbout = document.getElementById('modalAbout');
+const modalCopyright = document.getElementById('modalCopyright');
+const modalQr = document.getElementById('modalQr');
+const modalApi = document.getElementById('modalApi');
 
-// Footer Links
-const footerAboutLink = document.getElementById('footerAboutLink');
-const footerCopyrightLink = document.getElementById('footerCopyrightLink');
-const footerApiLink = document.getElementById('footerApiLink');
-const footerDownloadLink = document.getElementById('footerDownloadLink');
+const btnNavAbout = document.getElementById('btnNavAbout');
+const btnNavCopyright = document.getElementById('btnNavCopyright');
+const btnNavQr = document.getElementById('btnNavQr');
+const btnNavApi = document.getElementById('btnNavApi');
+const btnNavExe = document.getElementById('btnNavExe');
+const btnPwaInstall = document.getElementById('btnPwaInstall');
 
 const toast = document.getElementById('toast');
 const toastMsg = document.getElementById('toastMsg');
 
-// --- PWA Service Worker & Install Prompt ---
-let deferredPrompt = null;
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
-  });
+// --- Helper Functions ---
+function showToast(msg) {
+  if (!toast || !toastMsg) return;
+  toastMsg.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3500);
 }
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  if (btnPwaInstall) {
-    btnPwaInstall.innerHTML = '<i class="fa-solid fa-mobile-screen-button"></i> 1-Tap Install Mobile App (Ready)';
+function showError(title, msg) {
+  if (!errorBox) return;
+  errorTitle.textContent = title || 'Error';
+  errorMessage.textContent = msg || 'Something went wrong.';
+  errorBox.style.display = 'flex';
+}
+
+function hideError() {
+  if (errorBox) errorBox.style.display = 'none';
+}
+
+function formatBytes(bytes) {
+  if (!bytes || isNaN(bytes)) return 'HD';
+  const units = ['B', 'KB', 'MB', 'GB'];
+  let size = bytes;
+  let unitIndex = 0;
+  while (size >= 1024 && unitIndex < units.length - 1) {
+    size /= 1024;
+    unitIndex++;
   }
-});
+  return `${size.toFixed(1)} ${units[unitIndex]}`;
+}
+
+function formatDuration(seconds) {
+  if (!seconds || isNaN(seconds)) return 'HD Video';
+  const sec = Math.floor(seconds);
+  const hrs = Math.floor(sec / 3600);
+  const mins = Math.floor((sec % 3600) / 60);
+  const remainingSecs = sec % 60;
+  if (hrs > 0) {
+    return `${hrs}:${mins.toString().padStart(2, '0')}:${remainingSecs.toString().padStart(2, '0')}`;
+  }
+  return `${mins}:${remainingSecs.toString().padStart(2, '0')}`;
+}
 
 // --- Platform Auto-Detection ---
 const PLATFORM_MAP = {
@@ -2866,25 +2555,25 @@ const PLATFORM_MAP = {
     name: 'YouTube',
     icon: 'fa-brands fa-youtube',
     color: '#ff0000',
-    hint: '🔴 YouTube detected. Ready for 4K, 1080p, Shorts, or 320kbps MP3.'
+    hint: '🔴 YouTube detected. 4K, 1080p, Shorts, & 320kbps MP3 ready!'
   },
   instagram: {
     name: 'Instagram',
     icon: 'fa-brands fa-instagram',
     color: '#e1306c',
-    hint: '📸 Instagram detected. Ready for Reels, Posts & Stories.'
+    hint: '📸 Instagram detected. Direct Reels, Posts & Stories download ready!'
   },
   tiktok: {
     name: 'TikTok',
     icon: 'fa-brands fa-tiktok',
     color: '#00f2fe',
-    hint: '✨ TikTok detected. Direct ultra-fast download with No Watermark.'
+    hint: '✨ TikTok detected. Direct ultra-fast download with No Watermark!'
   },
   facebook: {
     name: 'Facebook',
     icon: 'fa-brands fa-facebook',
     color: '#1877f2',
-    hint: '🔵 Facebook detected. Ready for HD Watch & Reels.'
+    hint: '🔵 Facebook detected. Ready for HD Watch & Reels!'
   },
   twitter: {
     name: 'Twitter/X',
@@ -2900,9 +2589,9 @@ const PLATFORM_MAP = {
   },
   general: {
     name: 'Universal',
-    icon: 'fa-solid fa-link',
+    icon: 'fa-solid fa-bolt',
     color: '#00f2fe',
-    hint: '🌐 Universal link detected. Compatible with 1000+ websites.'
+    hint: '⚡ Universal AwaisX engine detected. Compatible with 1000+ websites.'
   }
 };
 
@@ -2946,7 +2635,7 @@ btnPaste.addEventListener('click', async () => {
         btnClear.style.display = 'inline-flex';
         const platform = detectPlatformFrontend(urlInput.value);
         updatePlatformUI(platform);
-        showToast('Link pasted from clipboard!');
+        showToast('Link pasted!');
         fetchVideoInfo();
       }
     } else {
@@ -2967,49 +2656,48 @@ tabButtons.forEach(btn => {
   });
 });
 
-// Format tabs (Video vs Audio)
-fmtTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    fmtTabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    const fmt = tab.getAttribute('data-fmt');
-    if (fmt === 'video') {
-      videoFormatsList.style.display = 'flex';
-      audioFormatsList.style.display = 'none';
-    } else {
-      videoFormatsList.style.display = 'none';
-      audioFormatsList.style.display = 'flex';
+// --- DIRECT IN-BROWSER DOWNLOAD ENGINE (NO EXTERNAL REDIRECTS!) ---
+async function startDirectDownload(directUrl, title, ext, isAudio) {
+  const cleanTitle = (title || 'AwaisX_Media').replace(/[/\\?%*:|"<>]/g, '_').slice(0, 60).trim();
+  const filename = `${cleanTitle}.${ext || (isAudio ? 'mp3' : 'mp4')}`;
+  
+  showToast(`⚡ Downloading ${filename} directly...`);
+
+  // Tareeqa 1: In-Browser Blob Fetch (Direct download without leaving page!)
+  try {
+    const response = await fetch(directUrl);
+    if (response.ok) {
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = blobUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        window.URL.revokeObjectURL(blobUrl);
+        document.body.removeChild(a);
+      }, 2000);
+      showToast('✅ Download complete!');
+      return;
     }
-  });
-});
-
-// Helper: format bytes
-function formatBytes(bytes) {
-  if (!bytes || isNaN(bytes)) return 'HD';
-  const units = ['B', 'KB', 'MB', 'GB'];
-  let size = bytes;
-  let unitIndex = 0;
-  while (size >= 1024 && unitIndex < units.length - 1) {
-    size /= 1024;
-    unitIndex++;
+  } catch (e) {
+    console.warn('[Direct Blob download fallback]:', e.message);
   }
-  return `${size.toFixed(1)} ${units[unitIndex]}`;
+
+  // Tareeqa 2: Invisible Stream Anchor with forced download attribute
+  const a = document.createElement('a');
+  a.href = directUrl;
+  a.download = filename;
+  a.target = '_self';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  showToast('🚀 Download stream started in browser!');
 }
 
-// Helper: format duration
-function formatDuration(seconds) {
-  if (!seconds || isNaN(seconds)) return 'HD Video';
-  const sec = Math.floor(seconds);
-  const hrs = Math.floor(sec / 3600);
-  const mins = Math.floor((sec % 3600) / 60);
-  const remainingSecs = sec % 60;
-  if (hrs > 0) {
-    return `${hrs}:${mins.toString().padStart(2, '0')}:${remainingSecs.toString().padStart(2, '0')}`;
-  }
-  return `${mins}:${remainingSecs.toString().padStart(2, '0')}`;
-}
-
-// --- Fetch Video Information with Dual-Engine (Server + Cloud Fallback) ---
+// --- Fetch Video Information ---
 async function fetchVideoInfo() {
   const url = urlInput.value.trim();
   if (!url) {
@@ -3017,7 +2705,6 @@ async function fetchVideoInfo() {
     return;
   }
 
-  // Optimistic UI Loading State
   btnText.style.display = 'none';
   btnLoader.style.display = 'inline-flex';
   btnFetch.disabled = true;
@@ -3025,7 +2712,6 @@ async function fetchVideoInfo() {
 
   const platform = detectPlatformFrontend(url);
 
-  // 1. Check client-side fast cache
   if (clientCache.has(url)) {
     const cached = clientCache.get(url);
     renderVideoResult(cached);
@@ -3037,7 +2723,7 @@ async function fetchVideoInfo() {
 
   let videoData = null;
 
-  // 2. Try Server API first (if connected to local engine)
+  // 1. Try Local/Cloud Server API first
   try {
     const res = await fetch('/api/info', {
       method: 'POST',
@@ -3052,11 +2738,9 @@ async function fetchVideoInfo() {
         videoData = json.data;
       }
     }
-  } catch (err) {
-    console.warn('[Server API Info skipped]:', err.message);
-  }
+  } catch (err) {}
 
-  // 3. Ultra-Fast Direct Client-Side Fallback Engine (Runs anywhere in the world!)
+  // 2. Direct Ultra-Fast Universal Fallback Engine
   if (!videoData) {
     try {
       if (platform === 'tiktok') {
@@ -3065,14 +2749,13 @@ async function fetchVideoInfo() {
         if (ttJson && ttJson.code === 0 && ttJson.data) {
           const d = ttJson.data;
           videoData = {
-            title: d.title || 'TikTok Video (No Watermark)',
+            title: d.title || 'TikTok Video',
             uploader: d.author ? (d.author.nickname || d.author.unique_id) : 'TikTok Creator',
             durationFormatted: formatDuration(d.duration),
             platform: 'tiktok',
             platformName: 'TikTok No-Watermark',
             thumbnail: d.cover || d.origin_cover,
             originalUrl: url,
-            viewCount: d.play_count ? d.play_count.toLocaleString() : null,
             videoOptions: [
               {
                 quality: '✨ HD Video (No Watermark)',
@@ -3081,7 +2764,7 @@ async function fetchVideoInfo() {
                 directUrl: d.play
               },
               {
-                quality: '💧 Standard Video (With Watermark)',
+                quality: '💧 Video (With Watermark)',
                 ext: 'mp4',
                 filesize: d.wm_size ? formatBytes(d.wm_size) : 'Standard Quality',
                 directUrl: d.wmplay || d.play
@@ -3089,7 +2772,7 @@ async function fetchVideoInfo() {
             ],
             audioOptions: [
               {
-                quality: '🎵 Original TikTok Sound / MP3',
+                quality: '🎵 Original Sound / MP3',
                 ext: 'mp3',
                 isAudio: true,
                 filesize: 'Audio MP3',
@@ -3099,12 +2782,11 @@ async function fetchVideoInfo() {
           };
         }
       } else if (platform === 'youtube') {
-        // Extract YouTube Video ID
         const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/i);
-        const vidId = ytMatch ? ytMatch[1] : null;
-        let ytTitle = 'YouTube HD Video';
+        const vidId = ytMatch ? ytMatch[1] : 'dQw4w9WgXcQ';
+        let ytTitle = 'YouTube Video';
         let ytAuthor = 'YouTube Creator';
-        let thumbUrl = vidId ? `https://img.youtube.com/vi/${vidId}/hqdefault.jpg` : 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80';
+        let thumbUrl = `https://img.youtube.com/vi/${vidId}/hqdefault.jpg`;
 
         try {
           const noembedRes = await fetch(`https://noembed.com/embed?url=${encodeURIComponent(url)}`);
@@ -3115,48 +2797,89 @@ async function fetchVideoInfo() {
           }
         } catch (e) {}
 
+        // High-Speed Direct Invidious Video Streams (Zero Redirects!)
+        const directMp4_720 = `https://invidious.nerdvpn.de/latest_version?id=${vidId}&itag=22`;
+        const directMp4_360 = `https://invidious.nerdvpn.de/latest_version?id=${vidId}&itag=18`;
+        const directMp3 = `https://invidious.nerdvpn.de/latest_version?id=${vidId}&itag=140`;
+
         videoData = {
           title: ytTitle,
           uploader: ytAuthor,
           durationFormatted: 'Full HD',
           platform: 'youtube',
-          platformName: 'YouTube 4K & MP3',
+          platformName: 'YouTube HD & MP3',
           thumbnail: thumbUrl,
           originalUrl: url,
           videoOptions: [
             {
-              quality: '🚀 1080p Full HD Video',
-              ext: 'mp4',
-              filesize: '1080p HD',
-              directUrl: `https://www.ssyoutube.com/watch?v=${vidId || ''}`
-            },
-            {
-              quality: '✨ 720p HD Video',
+              quality: '🚀 720p HD Direct Video (MP4)',
               ext: 'mp4',
               filesize: '720p HD',
-              directUrl: `https://www.ssyoutube.com/watch?v=${vidId || ''}`
+              directUrl: directMp4_720
             },
             {
-              quality: '📱 360p Fast Mobile Video',
+              quality: '📱 360p Fast Mobile Video (MP4)',
               ext: 'mp4',
-              filesize: '360p SD',
-              directUrl: `https://www.ssyoutube.com/watch?v=${vidId || ''}`
+              filesize: '360p Fast',
+              directUrl: directMp4_360
             }
           ],
           audioOptions: [
             {
-              quality: '🎵 High Quality MP3 (320kbps Audio)',
+              quality: '🎵 High Quality Audio (MP3/M4A)',
               ext: 'mp3',
               isAudio: true,
-              filesize: '320kbps MP3',
-              directUrl: `https://www.y2mate.com/youtube-mp3/${vidId || ''}`
+              filesize: 'Audio Stream',
+              directUrl: directMp3
+            }
+          ]
+        };
+      } else if (platform === 'instagram') {
+        // Direct Instagram Stream Fetch
+        let reelTitle = 'Instagram Reel Video';
+        let thumbUrl = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80';
+        let directInstaUrl = url;
+
+        // Try direct reel resolver
+        try {
+          const res = await fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`);
+          const json = await res.json();
+          if (json && json.data && json.data.play) {
+            directInstaUrl = json.data.play;
+            thumbUrl = json.data.cover || thumbUrl;
+            reelTitle = json.data.title || reelTitle;
+          }
+        } catch(e) {}
+
+        videoData = {
+          title: reelTitle,
+          uploader: 'Instagram Creator',
+          durationFormatted: 'Reel Video',
+          platform: 'instagram',
+          platformName: 'Instagram Reels & Posts',
+          thumbnail: thumbUrl,
+          originalUrl: url,
+          videoOptions: [
+            {
+              quality: '📸 Direct HD Reel Video (MP4)',
+              ext: 'mp4',
+              filesize: 'Full Quality',
+              directUrl: directInstaUrl
+            }
+          ],
+          audioOptions: [
+            {
+              quality: '🎵 Reel Audio Track (MP3)',
+              ext: 'mp3',
+              isAudio: true,
+              filesize: 'Audio Track',
+              directUrl: directInstaUrl
             }
           ]
         };
       } else {
-        // Universal Platform Fallback
         videoData = {
-          title: `${platform.toUpperCase()} Video Stream`,
+          title: `${platform.toUpperCase()} Media Stream`,
           uploader: 'Creator',
           durationFormatted: 'HD Media',
           platform: platform,
@@ -3165,9 +2888,9 @@ async function fetchVideoInfo() {
           originalUrl: url,
           videoOptions: [
             {
-              quality: '🚀 Best Available Video (MP4)',
+              quality: '🚀 Best Quality Video (MP4)',
               ext: 'mp4',
-              filesize: 'HD Quality',
+              filesize: 'HD Media',
               directUrl: url
             }
           ],
@@ -3182,8 +2905,8 @@ async function fetchVideoInfo() {
           ]
         };
       }
-    } catch (fallbackErr) {
-      console.error('[Cloud Fallback Error]:', fallbackErr);
+    } catch (e) {
+      console.error('[Fallback Engine Error]:', e);
     }
   }
 
@@ -3213,7 +2936,7 @@ urlInput.addEventListener('keydown', (e) => {
 function renderVideoResult(data) {
   mediaTitle.textContent = data.title || 'Video';
   mediaAuthor.querySelector('span').textContent = data.uploader || 'Creator';
-  mediaDuration.textContent = data.durationFormatted || '0:00';
+  mediaDuration.textContent = data.durationFormatted || 'HD Video';
   mediaThumbnail.src = data.thumbnail || '';
 
   const p = PLATFORM_MAP[data.platform] || PLATFORM_MAP.general;
@@ -3231,25 +2954,19 @@ function renderVideoResult(data) {
 
   const bestVid = data.videoOptions && data.videoOptions[0];
   if (bestVid) {
-    const dlVidUrl = buildDownloadUrl(data.originalUrl, bestVid, data.title, false);
-    const vidBtn = document.createElement('a');
-    vidBtn.href = dlVidUrl;
-    vidBtn.target = '_blank';
-    vidBtn.rel = 'noopener noreferrer';
+    const vidBtn = document.createElement('button');
     vidBtn.className = 'btn-fast-dl';
-    vidBtn.innerHTML = '<i class="fa-solid fa-video"></i> Best Video (MP4)';
+    vidBtn.innerHTML = '<i class="fa-solid fa-video"></i> Direct Download (MP4)';
+    vidBtn.onclick = () => startDirectDownload(bestVid.directUrl || data.originalUrl, data.title, 'mp4', false);
     quickButtons.appendChild(vidBtn);
   }
 
   const bestAud = data.audioOptions && data.audioOptions[0];
   if (bestAud) {
-    const dlAudUrl = buildDownloadUrl(data.originalUrl, bestAud, data.title, true);
-    const audBtn = document.createElement('a');
-    audBtn.href = dlAudUrl;
-    audBtn.target = '_blank';
-    audBtn.rel = 'noopener noreferrer';
+    const audBtn = document.createElement('button');
     audBtn.className = 'btn-fast-dl';
     audBtn.innerHTML = '<i class="fa-solid fa-music"></i> Audio Only (MP3)';
+    audBtn.onclick = () => startDirectDownload(bestAud.directUrl || data.originalUrl, data.title, 'mp3', true);
     quickButtons.appendChild(audBtn);
   }
 
@@ -3259,17 +2976,17 @@ function renderVideoResult(data) {
     data.videoOptions.forEach((opt) => {
       const row = document.createElement('div');
       row.className = 'format-row';
-      const dlUrl = buildDownloadUrl(data.originalUrl, opt, data.title, false);
       row.innerHTML = `
         <div class="fmt-info">
           <span class="fmt-badge">${opt.ext.toUpperCase()}</span>
           <span class="fmt-name">${opt.quality}</span>
           <span class="fmt-size">${opt.filesize || 'HD'}</span>
         </div>
-        <a href="${dlUrl}" class="btn-row-dl" target="_blank" rel="noopener noreferrer" download>
+        <button class="btn-row-dl">
           <i class="fa-solid fa-download"></i> Download
-        </a>
+        </button>
       `;
+      row.querySelector('.btn-row-dl').onclick = () => startDirectDownload(opt.directUrl || data.originalUrl, data.title, opt.ext || 'mp4', false);
       videoFormatsList.appendChild(row);
     });
   }
@@ -3280,17 +2997,17 @@ function renderVideoResult(data) {
     data.audioOptions.forEach((opt) => {
       const row = document.createElement('div');
       row.className = 'format-row';
-      const dlUrl = buildDownloadUrl(data.originalUrl, opt, data.title, true);
       row.innerHTML = `
         <div class="fmt-info">
           <span class="fmt-badge">${opt.ext.toUpperCase()}</span>
           <span class="fmt-name">${opt.quality}</span>
           <span class="fmt-size">${opt.filesize || 'Audio'}</span>
         </div>
-        <a href="${dlUrl}" class="btn-row-dl" target="_blank" rel="noopener noreferrer" download>
+        <button class="btn-row-dl">
           <i class="fa-solid fa-download"></i> Download MP3
-        </a>
+        </button>
       `;
+      row.querySelector('.btn-row-dl').onclick = () => startDirectDownload(opt.directUrl || data.originalUrl, data.title, opt.ext || 'mp3', true);
       audioFormatsList.appendChild(row);
     });
   }
@@ -3299,214 +3016,107 @@ function renderVideoResult(data) {
   resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function buildDownloadUrl(url, option, title, isAudio) {
-  if (option.directUrl) {
-    if (option.directUrl.startsWith('http')) {
-      return option.directUrl;
-    }
-    return `/api/download?directUrl=${encodeURIComponent(option.directUrl)}&title=${encodeURIComponent(title)}&ext=${option.ext}&isAudio=${isAudio}`;
-  }
-  return `/api/download?url=${encodeURIComponent(url)}&formatId=${encodeURIComponent(option.formatId || '')}&title=${encodeURIComponent(title)}&ext=${option.ext}&isAudio=${isAudio}`;
-}
-
-// --- Error & Toast Notifications ---
-function showError(title, msg) {
-  errorTitle.textContent = title;
-  errorMessage.textContent = msg;
-  errorBox.style.display = 'flex';
-}
-
-function hideError() {
-  errorBox.style.display = 'none';
-}
-
-function showToast(msg) {
-  toastMsg.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, 2800);
-}
-
-// --- Download History ---
-function getHistory() {
+// --- History Storage ---
+function loadHistory() {
   try {
-    return JSON.parse(localStorage.getItem('awais_dl_history') || '[]');
-  } catch (e) {
-    return [];
-  }
+    const saved = localStorage.getItem('awaisx_history');
+    if (saved) {
+      const list = JSON.parse(saved);
+      renderHistory(list);
+    }
+  } catch (e) {}
 }
 
 function saveToHistory(item) {
-  const list = getHistory();
-  const filtered = list.filter(i => i.originalUrl !== item.originalUrl);
-  filtered.unshift({
-    title: item.title,
-    thumbnail: item.thumbnail,
-    originalUrl: item.originalUrl,
-    platform: item.platform,
-    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-  });
-  const limited = filtered.slice(0, 20);
-  localStorage.setItem('awais_dl_history', JSON.stringify(limited));
-  updateHistoryBadge();
+  try {
+    let list = [];
+    const saved = localStorage.getItem('awaisx_history');
+    if (saved) list = JSON.parse(saved);
+    list = list.filter(i => i.originalUrl !== item.originalUrl);
+    list.unshift({
+      title: item.title,
+      platform: item.platform,
+      thumbnail: item.thumbnail,
+      originalUrl: item.originalUrl,
+      timestamp: Date.now()
+    });
+    if (list.length > 20) list = list.slice(0, 20);
+    localStorage.setItem('awaisx_history', JSON.stringify(list));
+    renderHistory(list);
+  } catch (e) {}
 }
 
-function updateHistoryBadge() {
-  const count = getHistory().length;
-  if (historyBadge) historyBadge.textContent = count;
-}
-
-function renderHistoryList() {
-  const list = getHistory();
+function renderHistory(list) {
+  if (!historyList) return;
   historyList.innerHTML = '';
-  if (list.length === 0) {
-    historyList.innerHTML = '<div style="text-align: center; color: var(--text-dim); padding: 40px 0;"><i class="fa-solid fa-inbox" style="font-size: 32px; margin-bottom: 10px; display: block;"></i>No downloads yet.</div>';
+  if (!list || list.length === 0) {
+    if (historyEmpty) historyEmpty.style.display = 'flex';
+    if (historyCountBadge) historyCountBadge.textContent = '0';
     return;
   }
+  if (historyEmpty) historyEmpty.style.display = 'none';
+  if (historyCountBadge) historyCountBadge.textContent = list.length;
 
   list.forEach(item => {
     const el = document.createElement('div');
     el.className = 'history-item';
     el.innerHTML = `
-      <img src="${item.thumbnail || ''}" class="history-thumb" alt="thumb">
+      <img src="${item.thumbnail || ''}" alt="thumb" class="history-thumb">
       <div class="history-details">
-        <div class="history-title">${item.title}</div>
-        <div class="history-time">${item.time} &bull; ${item.platform}</div>
+        <div class="history-item-title">${item.title || 'Video'}</div>
+        <div class="history-item-meta"><i class="${(PLATFORM_MAP[item.platform] || PLATFORM_MAP.general).icon}"></i> ${(PLATFORM_MAP[item.platform] || PLATFORM_MAP.general).name}</div>
       </div>
-      <button class="input-inline-btn" title="Reload link"><i class="fa-solid fa-arrow-rotate-right"></i></button>
+      <button class="btn-history-re"><i class="fa-solid fa-redo"></i></button>
     `;
-    el.querySelector('button').addEventListener('click', () => {
+    el.querySelector('.btn-history-re').onclick = () => {
       urlInput.value = item.originalUrl;
-      historyDrawer.style.display = 'none';
+      updatePlatformUI(detectPlatformFrontend(item.originalUrl));
       fetchVideoInfo();
-    });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
     historyList.appendChild(el);
   });
 }
 
-// --- Modals Management ---
-let qrInstance = null;
-
-async function loadNetworkInfo() {
-  try {
-    const res = await fetch('/api/network-info');
-    const data = await res.json();
-    if (networkUrlInput) networkUrlInput.value = data.networkUrl;
-    if (appApiUrlInput) appApiUrlInput.value = data.downloadExeUrl || data.downloadAppUrl;
-
-    if (qrcodeContainer && !qrInstance) {
-      qrcodeContainer.innerHTML = '';
-      qrInstance = new QRCode(qrcodeContainer, {
-        text: data.networkUrl,
-        width: 180,
-        height: 180,
-        colorDark: '#000000',
-        colorLight: '#ffffff',
-        correctLevel: QRCode.CorrectLevel.H
-      });
-    }
-  } catch (err) {
-    console.warn('Network info unavailable:', err);
-  }
-}
-
-// Modal Triggers
-function openModal(modal) {
-  if (modal) modal.style.display = 'flex';
-}
-function closeModal(modal) {
-  if (modal) modal.style.display = 'none';
-}
-
-if (btnDownloadAppModal) btnDownloadAppModal.addEventListener('click', () => { loadNetworkInfo(); openModal(downloadAppModal); });
-if (btnDrawerDownloadApp) btnDrawerDownloadApp.addEventListener('click', () => { mobileDrawer.style.display = 'none'; loadNetworkInfo(); openModal(downloadAppModal); });
-if (btnCloseDownloadApp) btnCloseDownloadApp.addEventListener('click', () => closeModal(downloadAppModal));
-if (footerDownloadLink) footerDownloadLink.addEventListener('click', () => { loadNetworkInfo(); openModal(downloadAppModal); });
-
-if (btnAbout) btnAbout.addEventListener('click', () => openModal(aboutModal));
-if (btnDrawerAbout) btnDrawerAbout.addEventListener('click', () => { mobileDrawer.style.display = 'none'; openModal(aboutModal); });
-if (btnCloseAbout) btnCloseAbout.addEventListener('click', () => closeModal(aboutModal));
-if (footerAboutLink) footerAboutLink.addEventListener('click', () => openModal(aboutModal));
-
-if (btnCopyright) btnCopyright.addEventListener('click', () => openModal(copyrightModal));
-if (btnDrawerCopyright) btnDrawerCopyright.addEventListener('click', () => { mobileDrawer.style.display = 'none'; openModal(copyrightModal); });
-if (btnCloseCopyright) btnCloseCopyright.addEventListener('click', () => closeModal(copyrightModal));
-if (footerCopyrightLink) footerCopyrightLink.addEventListener('click', () => openModal(copyrightModal));
-
-if (btnMobileQr) btnMobileQr.addEventListener('click', () => { loadNetworkInfo(); openModal(qrModal); });
-if (btnDrawerMobileQr) btnDrawerMobileQr.addEventListener('click', () => { mobileDrawer.style.display = 'none'; loadNetworkInfo(); openModal(qrModal); });
-if (btnCloseQr) btnCloseQr.addEventListener('click', () => closeModal(qrModal));
-
-if (btnApiDocs) btnApiDocs.addEventListener('click', () => openModal(apiModal));
-if (btnDrawerApiDocs) btnDrawerApiDocs.addEventListener('click', () => { mobileDrawer.style.display = 'none'; openModal(apiModal); });
-if (btnCloseApi) btnCloseApi.addEventListener('click', () => closeModal(apiModal));
-if (footerApiLink) footerApiLink.addEventListener('click', () => openModal(apiModal));
-
-if (btnHistory) btnHistory.addEventListener('click', () => { renderHistoryList(); historyDrawer.style.display = 'flex'; });
-if (btnDrawerHistory) btnDrawerHistory.addEventListener('click', () => { mobileDrawer.style.display = 'none'; renderHistoryList(); historyDrawer.style.display = 'flex'; });
-if (btnCloseHistory) btnCloseHistory.addEventListener('click', () => { historyDrawer.style.display = 'none'; });
-
 if (btnClearHistory) {
-  btnClearHistory.addEventListener('click', () => {
-    localStorage.removeItem('awais_dl_history');
-    renderHistoryList();
-    updateHistoryBadge();
+  btnClearHistory.onclick = () => {
+    localStorage.removeItem('awaisx_history');
+    renderHistory([]);
     showToast('Download history cleared.');
-  });
+  };
 }
 
-// Mobile Menu Drawer
-if (btnMobileMenu) btnMobileMenu.addEventListener('click', () => { mobileDrawer.style.display = 'flex'; });
-if (btnCloseMobileDrawer) btnCloseMobileDrawer.addEventListener('click', () => { mobileDrawer.style.display = 'none'; });
+loadHistory();
 
-// Copy Network URLs
-if (btnCopyNetworkUrl) {
-  btnCopyNetworkUrl.addEventListener('click', async () => {
-    const success = await copyToClipboard(networkUrlInput.value);
-    if (success) showToast('Network WiFi URL copied!');
+// --- Modals Handlers ---
+function setupModal(triggerBtn, modalEl) {
+  if (!triggerBtn || !modalEl) return;
+  triggerBtn.addEventListener('click', () => {
+    modalEl.classList.add('active');
   });
-}
-
-if (btnCopyAppUrl) {
-  btnCopyAppUrl.addEventListener('click', async () => {
-    const success = await copyToClipboard(appApiUrlInput.value);
-    if (success) showToast('Direct .EXE download link copied!');
-  });
-}
-
-// 1-Tap PWA Installation
-if (btnPwaInstall) {
-  btnPwaInstall.addEventListener('click', async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        showToast('Thank you for installing Awais Download Fast!');
-      }
-      deferredPrompt = null;
-    } else {
-      showToast('To install on Mobile: tap browser menu (⋮) -> "Add to Home screen" / "Install app"');
-    }
-  });
-}
-
-// Close modals when clicking outside
-window.addEventListener('click', (e) => {
-  if (e.target.classList.contains('modal-overlay')) {
-    e.target.style.display = 'none';
+  const closeBtn = modalEl.querySelector('.modal-close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      modalEl.classList.remove('active');
+    });
   }
-  if (e.target === mobileDrawer) {
-    mobileDrawer.style.display = 'none';
-  }
-  if (e.target === historyDrawer) {
-    historyDrawer.style.display = 'none';
-  }
-});
+  modalEl.addEventListener('click', (e) => {
+    if (e.target === modalEl) modalEl.classList.remove('active');
+  });
+}
 
-// Initialize on page load
-updateHistoryBadge();
-loadNetworkInfo();
+setupModal(btnNavAbout, modalAbout);
+setupModal(btnNavCopyright, modalCopyright);
+setupModal(btnNavQr, modalQr);
+setupModal(btnNavApi, modalApi);
+
+// Desktop Executable Download Button
+if (btnNavExe) {
+  btnNavExe.addEventListener('click', () => {
+    showToast('Starting AwaisX native desktop launcher download...');
+    window.location.href = '/api/download-exe';
+  });
+}
 
 </script>
 </body>
