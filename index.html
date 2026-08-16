@@ -1248,13 +1248,17 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(12px);
   z-index: 500;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   padding: 20px;
+}
+
+.modal-overlay.active {
+  display: flex;
   animation: fadeIn 0.25s ease;
 }
 
@@ -2068,11 +2072,23 @@ body {
       <div class="particle p2"></div>
       <div class="particle p3"></div>
       <div class="particle p4"></div>
+      <div class="particle p5"></div>
     </div>
-    <div class="splash-content">
-      <div class="splash-logo-wrap">
-        <img src="icon.svg" alt="AwaisX Logo" class="splash-logo-img">
-        <div class="splash-pulse-ring"></div>
+    <div class="splash-container">
+      <div class="splash-logo-glow">
+        <svg class="splash-logo-svg" viewBox="0 0 500 500" width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sCyan" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00f2fe"/><stop offset="100%" stop-color="#0052d4"/></linearGradient>
+            <linearGradient id="sEmerald" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00ff87"/><stop offset="100%" stop-color="#00f2fe"/></linearGradient>
+            <linearGradient id="sGold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffe259"/><stop offset="100%" stop-color="#ffa751"/></linearGradient>
+          </defs>
+          <polygon points="250,20 450,110 450,390 250,480 50,390 50,110" fill="#0a0f1d" stroke="url(#sCyan)" stroke-width="14"/>
+          <path d="M 130,115 L 180,105 L 370,385 L 320,395 Z" fill="url(#sCyan)"/>
+          <path d="M 370,115 L 320,105 L 130,385 L 180,395 Z" fill="url(#sEmerald)"/>
+          <circle cx="250" cy="250" r="16" fill="url(#sGold)"/>
+          <path d="M 260,150 L 235,230 L 265,230 L 240,340 L 275,250 L 245,250 Z" fill="url(#sGold)"/>
+          <text x="250" y="445" font-family="'Outfit', sans-serif" font-weight="900" font-size="32" fill="#ffffff" text-anchor="middle" letter-spacing="6">AWAISX</text>
+        </svg>
       </div>
       <div class="splash-badge">
         <span class="azadi-flag">🇵🇰</span> SPECIAL EDITION • DEVELOPED BY AWAIS
@@ -2109,7 +2125,18 @@ body {
     <header class="navbar">
       <div class="nav-brand">
         <div class="brand-logo-glow">
-          <img src="icon.svg" alt="AwaisX" class="nav-logo-svg">
+          <svg viewBox="0 0 500 500" width="34" height="34" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="nbCyan" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00f2fe"/><stop offset="100%" stop-color="#0052d4"/></linearGradient>
+              <linearGradient id="nbEmerald" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00ff87"/><stop offset="100%" stop-color="#00f2fe"/></linearGradient>
+              <linearGradient id="nbGold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffe259"/><stop offset="100%" stop-color="#ffa751"/></linearGradient>
+            </defs>
+            <polygon points="250,20 450,110 450,390 250,480 50,390 50,110" fill="#0a0f1d" stroke="url(#nbCyan)" stroke-width="18"/>
+            <path d="M 130,115 L 180,105 L 370,385 L 320,395 Z" fill="url(#nbCyan)"/>
+            <path d="M 370,115 L 320,105 L 130,385 L 180,395 Z" fill="url(#nbEmerald)"/>
+            <circle cx="250" cy="250" r="18" fill="url(#nbGold)"/>
+            <path d="M 260,150 L 235,230 L 265,230 L 240,340 L 275,250 L 245,250 Z" fill="url(#nbGold)"/>
+          </svg>
         </div>
         <div class="brand-info">
           <div class="brand-title-row">
@@ -2290,8 +2317,7 @@ body {
       <div class="footer-top">
         <div class="footer-brand">
           <div class="footer-logo">
-            <img src="icon.svg" alt="AwaisX" class="footer-logo-img">
-            <span>AWAIS<span class="brand-x">X</span></span>
+            <span>⚡ AWAIS<span class="brand-x">X</span></span>
           </div>
           <p>The ultimate high-speed media downloader developed by <strong>Awais</strong>. Free forever.</p>
         </div>
@@ -2300,7 +2326,7 @@ body {
             <h4>Application</h4>
             <a href="javascript:void(0)" onclick="document.getElementById('modalAbout').classList.add('active')">About Creator</a>
             <a href="javascript:void(0)" onclick="document.getElementById('modalCopyright').classList.add('active')">DMCA & Legal</a>
-            <a href="javascript:void(0)" onclick="document.getElementById('modalQr').classList.add('active')">Mobile Access</a>
+            <a href="javascript:void(0)" onclick="document.getElementById('btnNavQr').click()">Mobile Access</a>
           </div>
           <div class="footer-col">
             <h4>Platforms</h4>
@@ -2324,11 +2350,10 @@ body {
     <div class="modal-card">
       <div class="modal-header">
         <div class="modal-title"><i class="fa-solid fa-circle-user"></i> About AwaisX</div>
-        <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close" onclick="document.getElementById('modalAbout').classList.remove('active')"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body">
         <div class="about-hero">
-          <img src="icon.svg" alt="AwaisX" class="about-logo">
           <h3>AwaisX Pro Downloader</h3>
           <p class="about-author">Created & Engineered by <strong>Awais</strong></p>
         </div>
@@ -2349,7 +2374,7 @@ body {
     <div class="modal-card">
       <div class="modal-header">
         <div class="modal-title"><i class="fa-solid fa-shield-halved"></i> Copyright & DMCA Policy</div>
-        <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close" onclick="document.getElementById('modalCopyright').classList.remove('active')"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body">
         <p><strong>AwaisX</strong> is a personal media transformation and backup tool. It does not host, store, or re-broadcast any media files on its servers. All media streams are fetched directly from official public content delivery networks.</p>
@@ -2367,7 +2392,7 @@ body {
     <div class="modal-card">
       <div class="modal-header">
         <div class="modal-title"><i class="fa-solid fa-mobile-screen"></i> Mobile Access & QR</div>
-        <button class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+        <button class="modal-close" onclick="document.getElementById('modalQr').classList.remove('active')"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="modal-body text-center">
         <p>Open AwaisX directly on your mobile device browser without installing any app:</p>
