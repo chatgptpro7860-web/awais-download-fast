@@ -180,7 +180,7 @@ const PLATFORM_MAP = {
     name: 'Instagram',
     icon: 'fa-brands fa-instagram',
     color: '#dc2743',
-    hint: '📸 Instagram detected. Reels, Stories, Posts & IGTV ready!'
+    hint: '📸 Instagram detected. Reels, Stories & Posts video ready!'
   },
   tiktok: {
     name: 'TikTok',
@@ -287,22 +287,22 @@ tabButtons.forEach(btn => {
 });
 
 // =========================================================
-// 🚀 STREAMING & DIRECT DOWNLOAD ENGINE (LOCAL + VERCEL CLOUD)
+// 🚀 100% IN-TOOL DIRECT STREAMING DOWNLOAD CONTROLLER
+// (NO EXTERNAL REDIRECTS, NO BROKEN LINKS, SAVES DIRECTLY)
 // =========================================================
 function triggerDownload(videoData, opt) {
   const isAudio = opt.isAudio ? 'true' : 'false';
   const formatId = opt.formatId || (opt.isAudio ? 'bestaudio/best' : 'best');
   const ext = opt.ext || (opt.isAudio ? 'mp3' : 'mp4');
   const rawTitle = videoData.title || 'AwaisX_Media';
-  const cleanTitle = rawTitle.replace(/[/\\?%*:|"<>]/g, '_').slice(0, 100).trim();
+  const cleanTitle = rawTitle.replace(/[/\\?%*:|"<>]/g, '_').slice(0, 80).trim();
   const url = videoData.originalUrl;
   const directUrl = opt.directUrl || '';
 
-  showToast(`⚡ Starting download for "${cleanTitle.slice(0, 25)}..." [${ext.toUpperCase()}]`);
+  showToast(`⚡ Starting download: "${cleanTitle.slice(0, 25)}..." [${ext.toUpperCase()}]`);
 
-  // Direct CDN URL available (e.g. TikTok No-Watermark or Invidious/Direct CDN stream)
-  if (directUrl && typeof directUrl === 'string' && directUrl.startsWith('http')) {
-    // Attempt high-speed direct in-browser blob download
+  // Direct CDN URL available (e.g. TikTok No-Watermark)
+  if (directUrl && typeof directUrl === 'string' && directUrl.startsWith('http') && videoData.platform === 'tiktok') {
     fetch(directUrl)
       .then(res => {
         if (!res.ok) throw new Error('Direct fetch fallback');
@@ -323,21 +323,21 @@ function triggerDownload(videoData, opt) {
         showToast('✅ Download completed directly!');
       })
       .catch(() => {
-        // Fallback: Invisible link with download attribute & target blank
+        // Fallback to backend download proxy
+        const downloadUrl = `/api/download?url=${encodeURIComponent(url)}&formatId=${encodeURIComponent(formatId)}&title=${encodeURIComponent(cleanTitle)}&ext=${ext}&isAudio=${isAudio}&directUrl=${encodeURIComponent(directUrl)}`;
         const a = document.createElement('a');
-        a.href = directUrl;
-        a.download = `${cleanTitle}.${ext}`;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
+        a.href = downloadUrl;
+        a.setAttribute('download', `${cleanTitle}.${ext}`);
+        a.style.display = 'none';
         document.body.appendChild(a);
         a.click();
-        setTimeout(() => document.body.removeChild(a), 1200);
-        showToast('🚀 Download stream started!');
+        setTimeout(() => document.body.removeChild(a), 1500);
+        showToast('🚀 Downloading directly to your device...');
       });
     return;
   }
 
-  // Local/Node Backend streaming API
+  // Standard In-Tool Streaming Download (YouTube 4K/1080p/720p/MP3, Instagram Reels, Facebook HD)
   const downloadUrl = `/api/download?url=${encodeURIComponent(url)}&formatId=${encodeURIComponent(formatId)}&title=${encodeURIComponent(cleanTitle)}&ext=${ext}&isAudio=${isAudio}&directUrl=${encodeURIComponent(directUrl)}`;
 
   const a = document.createElement('a');
@@ -349,7 +349,7 @@ function triggerDownload(videoData, opt) {
 
   setTimeout(() => {
     document.body.removeChild(a);
-    showToast('✅ Download stream started! Saving to Downloads folder.');
+    showToast('✅ Direct download initiated! Check your Downloads folder.');
   }, 1200);
 }
 
@@ -380,7 +380,7 @@ async function fetchVideoInfo() {
 
   let videoData = null;
 
-  // 1. Try local/cloud backend server first
+  // 1. Try local/backend server first (Supercharged yt-dlp Core)
   try {
     const res = await fetch('/api/info', {
       method: 'POST',
@@ -396,7 +396,7 @@ async function fetchVideoInfo() {
       }
     }
   } catch (err) {
-    console.warn('[Backend /api/info unavailable, falling back]:', err.message);
+    console.warn('[Backend /api/info fallback]:', err.message);
   }
 
   // 2. High-Speed Fallback Direct Extractor (Zero External Redirects!)
@@ -445,10 +445,10 @@ async function fetchVideoInfo() {
         }
       } else if (platform === 'youtube') {
         const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/i);
-        const vidId = ytMatch ? ytMatch[1] : 'dQw4w9WgXcQ';
+        const vidId = ytMatch ? ytMatch[1] : '';
         let ytTitle = 'YouTube Video';
         let ytAuthor = 'YouTube Creator';
-        let thumbUrl = `https://img.youtube.com/vi/${vidId}/hqdefault.jpg`;
+        let thumbUrl = vidId ? `https://img.youtube.com/vi/${vidId}/hqdefault.jpg` : 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80';
 
         try {
           const noembedRes = await fetch(`https://noembed.com/embed?url=${encodeURIComponent(url)}`);
@@ -458,10 +458,6 @@ async function fetchVideoInfo() {
             ytAuthor = noembedJson.author_name || 'YouTube Creator';
           }
         } catch (e) {}
-
-        const directMp4_720 = `https://invidious.nerdvpn.de/latest_version?id=${vidId}&itag=22`;
-        const directMp4_360 = `https://invidious.nerdvpn.de/latest_version?id=${vidId}&itag=18`;
-        const directMp3 = `https://invidious.nerdvpn.de/latest_version?id=${vidId}&itag=140`;
 
         videoData = {
           title: ytTitle,
@@ -473,60 +469,55 @@ async function fetchVideoInfo() {
           originalUrl: url,
           videoOptions: [
             {
-              quality: '🚀 720p HD Video (MP4)',
+              quality: '🚀 1080p Full HD Video (MP4)',
+              ext: 'mp4',
+              filesize: 'Full HD 1080p',
+              formatId: 'b[height<=1080]/best[height<=1080]/best'
+            },
+            {
+              quality: '🎥 720p HD Video (MP4)',
               ext: 'mp4',
               filesize: 'HD 720p',
-              directUrl: directMp4_720,
-              formatId: '18/best[height<=720]/best'
+              formatId: '18/b[height<=720]/best[height<=720]/best'
             },
             {
               quality: '📱 360p Fast Mobile Video (MP4)',
               ext: 'mp4',
               filesize: 'Fast 360p',
-              directUrl: directMp4_360,
               formatId: 'best[height<=360]/best'
             }
           ],
           audioOptions: [
             {
-              quality: '🎵 High Quality MP3 / M4A',
+              quality: '🎵 High Quality MP3 (320kbps)',
               ext: 'mp3',
               isAudio: true,
-              filesize: 'Audio Stream',
-              directUrl: directMp3,
+              filesize: '320kbps Audio',
               formatId: 'bestaudio/best'
+            },
+            {
+              quality: '🎶 M4A Audio (AAC Standard)',
+              ext: 'm4a',
+              isAudio: true,
+              filesize: 'Standard Audio',
+              formatId: 'bestaudio[ext=m4a]/bestaudio/best'
             }
           ]
         };
       } else if (platform === 'instagram') {
-        let reelTitle = 'Instagram Reel / Post Video';
-        let thumbUrl = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80';
-        let directInstaUrl = url;
-
-        try {
-          const res = await fetch(`https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`);
-          const json = await res.json();
-          if (json && json.data && json.data.play) {
-            directInstaUrl = json.data.play;
-            thumbUrl = json.data.cover || thumbUrl;
-            reelTitle = json.data.title || reelTitle;
-          }
-        } catch(e) {}
-
         videoData = {
-          title: reelTitle,
+          title: 'Instagram Reel Video',
           uploader: 'Instagram Creator',
           durationFormatted: 'Reel Video',
           platform: 'instagram',
           platformName: 'Instagram Reels & Posts',
-          thumbnail: thumbUrl,
+          thumbnail: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
           originalUrl: url,
           videoOptions: [
             {
-              quality: '📸 Direct HD Reel Video (MP4)',
+              quality: '📸 HD Reel Video (MP4)',
               ext: 'mp4',
               filesize: 'Full HD',
-              directUrl: directInstaUrl,
               formatId: 'best'
             }
           ],
@@ -536,7 +527,6 @@ async function fetchVideoInfo() {
               ext: 'mp3',
               isAudio: true,
               filesize: 'Audio Track',
-              directUrl: directInstaUrl,
               formatId: 'bestaudio/best'
             }
           ]
@@ -555,7 +545,6 @@ async function fetchVideoInfo() {
               quality: '🚀 Best Quality Video (MP4)',
               ext: 'mp4',
               filesize: 'Full HD',
-              directUrl: url,
               formatId: 'best'
             }
           ],
@@ -565,7 +554,6 @@ async function fetchVideoInfo() {
               ext: 'mp3',
               isAudio: true,
               filesize: 'Audio Track',
-              directUrl: url,
               formatId: 'bestaudio/best'
             }
           ]
